@@ -1,0 +1,16 @@
+.header {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.section {
+  width: 8em;
+}
+
+.input {
+  margin-bottom: 0.8em;
+}
