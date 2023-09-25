@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { V2_MetaFunction } from "@remix-run/node";
 import { Expenses } from "~/components/Expenses";
-import { Income } from "~/components/Income/Income";
+import { Income } from "~/components/Income";
 import { Investments } from "~/components/Investments";
 import { Totals } from "~/components/Totals";
 import { Savings } from "~/components/Savings";
