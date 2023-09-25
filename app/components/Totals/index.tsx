@@ -1,4 +1,4 @@
-import { Title } from "@mantine/core";
+import { Group, Title } from "@mantine/core";
 import styles from "../Shared/Layout.module.css";
 import { NumberInput } from "../Shared/NumberInput";
 
@@ -16,11 +16,9 @@ export const Totals = ({
   savings: number;
 }) => (
   <div>
-    <Title className={styles.header} order={3}>
-      Totals
-    </Title>
+    <Title order={3}>Totals</Title>
     <div className={styles.container}>
-      <div className={styles.section}>
+      <Group>
         <NumberInput
           className={styles.input}
           label="Total Income"
@@ -48,7 +46,7 @@ export const Totals = ({
           label="Total Remaining/Savings"
           value={savings}
         />
-      </div>
+      </Group>
     </div>
   </div>
 );

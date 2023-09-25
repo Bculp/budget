@@ -60,9 +60,7 @@ export const Fun = ({
 
   return (
     <div>
-      <Title className={styles.header} order={3}>
-        Fun
-      </Title>
+      <Title order={3}>Fun</Title>
       <div className={styles.container}>
         {/* Actual */}
         <Generator

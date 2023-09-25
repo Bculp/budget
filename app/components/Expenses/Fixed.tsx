@@ -100,9 +100,7 @@ export const Fixed = ({
 
   return (
     <div>
-      <Title className={styles.header} order={3}>
-        Fixed
-      </Title>
+      <Title order={3}>Fixed</Title>
       <div className={styles.container}>
         {/* Actual */}
         <Generator

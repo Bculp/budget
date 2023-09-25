@@ -80,9 +80,7 @@ export const Variable = ({
 
   return (
     <div>
-      <Title className={styles.header} order={3}>
-        Variable
-      </Title>
+      <Title order={3}>Variable</Title>
       <div className={styles.container}>
         {/* Actual */}
         <Generator

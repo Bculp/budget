@@ -10,9 +10,7 @@ export const Savings = ({ savings }: { savings: number }) => {
 
   return (
     <div>
-      <Title className={styles.header} order={3}>
-        Savings
-      </Title>
+      <Title order={3}>Savings</Title>
       <div className={styles.container}>
         {/* Actual */}
         <Generator

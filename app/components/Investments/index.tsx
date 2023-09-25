@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { Title } from "@mantine/core";
+import { ActionIcon, Collapse, Group, Title } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import styles from "../Shared/Layout.module.css";
 import { Generator } from "../Shared/Generator";
 
@@ -20,6 +22,7 @@ export const Investments = ({
   updateMutualFunds: any;
   updateInvestmentTotal: any;
 }) => {
+  const [opened, { toggle }] = useDisclosure(false);
   const [roth401k, updateRoth401k] = useState(0);
   const actual = roth401k + rothIRA + individualInvestments + mutualFunds;
 
@@ -47,84 +50,89 @@ export const Investments = ({
 
   return (
     <div>
-      <Title className={styles.header} order={3}>
-        Investments
-      </Title>
-      <div className={styles.container}>
-        {/* Actual */}
-        <Generator
-          sectionTitle="Actual"
-          fields={[
-            {
-              label: "[AUTO] Roth 401k (12%)",
-              onChange: updateRoth401k,
-              value: roth401k,
-            },
-            {
-              label: "Roth IRA (10.75%)",
-              onChange: updateRothIRA,
-              value: rothIRA,
-            },
-            {
-              label: "Individual Investments (9%)",
-              onChange: updateIndividualInvestments,
-              value: individualInvestments,
-            },
-            {
-              label: "ETFs/Mutual Funds (19.25%)",
-              onChange: updateMutualFunds,
-              value: mutualFunds,
-            },
-          ]}
-          total={actual}
-        />
+      <Group>
+        <Title order={2}>Investments</Title>
+        <ActionIcon onClick={toggle}>
+          {opened ? <IconChevronUp /> : <IconChevronDown />}
+        </ActionIcon>
+      </Group>
+      <Collapse in={opened}>
+        <div className={styles.container}>
+          {/* Actual */}
+          <Generator
+            sectionTitle="Actual"
+            fields={[
+              {
+                label: "[AUTO] Roth 401k (12%)",
+                onChange: updateRoth401k,
+                value: roth401k,
+              },
+              {
+                label: "Roth IRA (10.75%)",
+                onChange: updateRothIRA,
+                value: rothIRA,
+              },
+              {
+                label: "Individual Investments (9%)",
+                onChange: updateIndividualInvestments,
+                value: individualInvestments,
+              },
+              {
+                label: "ETFs/Mutual Funds (19.25%)",
+                onChange: updateMutualFunds,
+                value: mutualFunds,
+              },
+            ]}
+            total={actual}
+          />
 
-        {/* Budgeted */}
-        <Generator
-          sectionTitle="Budgeted"
-          fields={[
-            {
-              label: "[AUTO] Roth 401k (12%)",
-              onChange: updateBudgetedRoth401k,
-              value: budgetedRoth401k,
-            },
-            {
-              label: "Roth IRA (10.75%)",
-              onChange: updateBudgetedRothIRA,
-              value: budgetedRothIRA,
-            },
-            {
-              label: "Individual Investments (9%)",
-              onChange: updateBudgetedIndividualInvestments,
-              value: budgetedIndividualInvestments,
-            },
-            {
-              label: "ETFs/Mutual Funds (19.25%)",
-              onChange: updateBudgetedMutualFunds,
-              value: budgetedMutualFunds,
-            },
-          ]}
-          total={budgeted}
-        />
+          {/* Budgeted */}
+          <Generator
+            sectionTitle="Budgeted"
+            fields={[
+              {
+                label: "[AUTO] Roth 401k (12%)",
+                onChange: updateBudgetedRoth401k,
+                value: budgetedRoth401k,
+              },
+              {
+                label: "Roth IRA (10.75%)",
+                onChange: updateBudgetedRothIRA,
+                value: budgetedRothIRA,
+              },
+              {
+                label: "Individual Investments (9%)",
+                onChange: updateBudgetedIndividualInvestments,
+                value: budgetedIndividualInvestments,
+              },
+              {
+                label: "ETFs/Mutual Funds (19.25%)",
+                onChange: updateBudgetedMutualFunds,
+                value: budgetedMutualFunds,
+              },
+            ]}
+            total={budgeted}
+          />
 
-        {/* Difference */}
-        <Generator
-          sectionTitle="Difference"
-          fields={[
-            { label: "[AUTO] Roth 401k (12%)", value: differenceRoth401k },
-            { label: "Roth IRA (10.75%)", value: differenceRothIRA },
-            {
-              label: "Individual Investments (9%)",
-              value: differenceIndividualInvestments,
-            },
-            {
-              label: "ETFs/Mutual Funds (19.25%)",
-              value: differenceMutualFunds,
-            },
-          ]}
-          total={difference}
-        />
-      </div>
+          {/* Difference */}
+          <Generator
+            sectionTitle="Difference"
+            fields={[
+              { label: "[AUTO] Roth 401k (12%)", value: differenceRoth401k },
+              { label: "Roth IRA (10.75%)", value: differenceRothIRA },
+              {
+                label: "Individual Investments (9%)",
+                value: differenceIndividualInvestments,
+              },
+              {
+                label: "ETFs/Mutual Funds (19.25%)",
+                value: differenceMutualFunds,
+              },
+            ]}
+            total={difference}
+          />
+        </div>
+      </Collapse>
     </div>
   );
 };

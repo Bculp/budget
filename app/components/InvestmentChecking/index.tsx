@@ -12,9 +12,7 @@ export const InvestmentChecking = ({
   mutualFunds: number;
 }) => (
   <div>
-    <Title className={styles.header} order={3}>
-      Total In Checking
-    </Title>
+    <Title order={3}>Total In Checking</Title>
     <div className={styles.container}>
       <div className={styles.section}>
         <NumberInput
