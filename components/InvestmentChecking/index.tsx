@@ -1,6 +1,6 @@
-import { Title } from "@mantine/core";
-import styles from "../Shared/Layout.module.css";
-import { NumberInput } from "../Shared/NumberInput";
+import { Title } from '@mantine/core';
+import styles from '../Shared/Layout.module.css';
+import { NumberInput } from '../Shared/NumberInput';
 
 export const InvestmentChecking = ({
   rothIRA,

@@ -1,8 +1,8 @@
-import { NumberInput as NumInput } from "@mantine/core";
+import { NumberInput as NumInput } from '@mantine/core';
 
 export const NumberInput = ({
   className,
-  label = "Number Field",
+  label = 'Number Field',
   onChange,
   placeholder,
   value,

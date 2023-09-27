@@ -1,6 +1,6 @@
-import { Text, Title } from "@mantine/core";
-import styles from "../Shared/Layout.module.css";
-import { NumberInput } from "./NumberInput";
+import { Text, Title } from '@mantine/core';
+import styles from './Layout.module.css';
+import { NumberInput } from './NumberInput';
 
 interface Field {
   label: string;

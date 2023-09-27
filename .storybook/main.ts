@@ -1,23 +1,10 @@
-import type { StorybookConfig } from "@storybook/react-webpack5";
-
+import type { StorybookConfig } from '@storybook/nextjs';
 const config: StorybookConfig = {
-  stories: ["../**/*.story.@(js|jsx|ts|tsx)"],
-  addons: [
-    "@storybook/addon-essentials",
-    "storybook-dark-mode",
-    {
-      name: "@storybook/addon-styling",
-      options: {
-        postCss: {
-          implementation: require("postcss"),
-        },
-      },
-    },
-  ],
+  stories: ['../components/**/*.(stories|story).@(js|jsx|ts|tsx)'],
+  addons: ['@storybook/addon-essentials', 'storybook-dark-mode', '@storybook/addon-styling'],
   framework: {
-    name: "@storybook/react-webpack5",
+    name: '@storybook/nextjs',
     options: {},
   },
 };
-
 export default config;

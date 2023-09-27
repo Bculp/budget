@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { Title } from "@mantine/core";
-import styles from "../Shared/Layout.module.css";
-import { Generator } from "../Shared/Generator";
-import type { ExpenseTotal } from "~/routes/_index";
+import { useEffect, useState } from 'react';
+import { Title } from '@mantine/core';
+import styles from '../Shared/Layout.module.css';
+import { Generator } from '../Shared/Generator';
+import type { ExpenseTotal } from '@/app/page';
 
 export const Fixed = ({
   expenseTotal,
@@ -42,15 +42,13 @@ export const Fixed = ({
     allTrails;
 
   const [budgetedRent, updateBudgetedRent] = useState(0);
-  const [budgetedRentersInsurance, updateBudgetedRentersInsurance] =
-    useState(0);
+  const [budgetedRentersInsurance, updateBudgetedRentersInsurance] = useState(0);
   const [budgetedInternet, updateBudgetedInternet] = useState(0);
   const [budgetedHealthInsurance, updateBudgetedHealthInsurance] = useState(0);
   const [budgetedCarInsurance, updateBudgetedCarInsurance] = useState(0);
   const [budgetedCellPhone, updateBudgetedCellPhone] = useState(0);
   const [budgetedGymMembership, updateBudgetedGymMembership] = useState(0);
-  const [budgetedAmazonMembership, updateBudgetedAmazonMembership] =
-    useState(0);
+  const [budgetedAmazonMembership, updateBudgetedAmazonMembership] = useState(0);
   const [budgetedSpotify, updateBudgetedSpotify] = useState(0);
   const [budgetedCostco, updateBudgetedCostco] = useState(0);
   const [budgetedDomain, updateBudgetedDomain] = useState(0);
@@ -74,15 +72,13 @@ export const Fixed = ({
     budgetedAllTrails;
 
   const differenceRent = budgetedRent - rent;
-  const differenceRentersInsurance =
-    budgetedRentersInsurance - rentersInsurance;
+  const differenceRentersInsurance = budgetedRentersInsurance - rentersInsurance;
   const differenceInternet = budgetedInternet - internet;
   const differenceHealthInsurance = budgetedHealthInsurance - healthInsurance;
   const differenceCarInsurance = budgetedCarInsurance - carInsurance;
   const differenceCellPhone = budgetedCellPhone - cellPhone;
   const differenceGymMembership = budgetedGymMembership - gymMembership;
-  const differenceAmazonMembership =
-    budgetedAmazonMembership - amazonMembership;
+  const differenceAmazonMembership = budgetedAmazonMembership - amazonMembership;
   const differenceSpotify = budgetedSpotify - spotify;
   const differenceCostco = budgetedCostco - costco;
   const differenceDomain = budgetedDomain - domain;
@@ -106,53 +102,53 @@ export const Fixed = ({
         <Generator
           sectionTitle="Actual"
           fields={[
-            { label: "Rent", onChange: updateRent, value: rent },
+            { label: 'Rent', onChange: updateRent, value: rent },
             {
               label: "Renter's Insurance",
               onChange: updateRentersInsurance,
               value: rentersInsurance,
             },
-            { label: "Internet", onChange: updateInternet, value: internet },
+            { label: 'Internet', onChange: updateInternet, value: internet },
             {
-              label: "[AUTO] Health, Dental Insurance, HSA",
+              label: '[AUTO] Health, Dental Insurance, HSA',
               onChange: updateHealthInsurance,
               value: healthInsurance,
             },
             {
-              label: "Car Insurance",
+              label: 'Car Insurance',
               onChange: updateCarInsurance,
               value: carInsurance,
             },
             {
-              label: "Cell Phone",
+              label: 'Cell Phone',
               onChange: updateCellPhone,
               value: cellPhone,
             },
             {
-              label: "Gym Membership",
+              label: 'Gym Membership',
               onChange: updateGymMembership,
               value: gymMembership,
             },
             {
-              label: "Amazon Membership",
+              label: 'Amazon Membership',
               onChange: updateAmazonMembership,
               value: amazonMembership,
             },
-            { label: "Spotify", onChange: updateSpotify, value: spotify },
-            { label: "Costco", onChange: updateCostco, value: costco },
-            { label: "Website Domain", onChange: updateDomain, value: domain },
+            { label: 'Spotify', onChange: updateSpotify, value: spotify },
+            { label: 'Costco', onChange: updateCostco, value: costco },
+            { label: 'Website Domain', onChange: updateDomain, value: domain },
             {
-              label: "Petco Vital Care (12 months)",
+              label: 'Petco Vital Care (12 months)',
               onChange: updatePetco,
               value: petco,
             },
             {
-              label: "DirecTV (split w mom/amy)",
+              label: 'DirecTV (split w mom/amy)',
               onChange: updateTv,
               value: tv,
             },
             {
-              label: "Alltrails Premium",
+              label: 'Alltrails Premium',
               onChange: updateAllTrails,
               value: allTrails,
             },
@@ -165,7 +161,7 @@ export const Fixed = ({
           sectionTitle="Budgeted"
           fields={[
             {
-              label: "Rent",
+              label: 'Rent',
               onChange: updateBudgetedRent,
               value: budgetedRent,
             },
@@ -175,62 +171,62 @@ export const Fixed = ({
               value: budgetedRentersInsurance,
             },
             {
-              label: "Internet",
+              label: 'Internet',
               onChange: updateBudgetedInternet,
               value: budgetedInternet,
             },
             {
-              label: "[AUTO] Health, Dental Insurance, HSA",
+              label: '[AUTO] Health, Dental Insurance, HSA',
               onChange: updateBudgetedHealthInsurance,
               value: budgetedHealthInsurance,
             },
             {
-              label: "Car Insurance",
+              label: 'Car Insurance',
               onChange: updateBudgetedCarInsurance,
               value: budgetedCarInsurance,
             },
             {
-              label: "Cell Phone",
+              label: 'Cell Phone',
               onChange: updateBudgetedCellPhone,
               value: budgetedCellPhone,
             },
             {
-              label: "Gym Membership",
+              label: 'Gym Membership',
               onChange: updateBudgetedGymMembership,
               value: budgetedGymMembership,
             },
             {
-              label: "Amazon Membership",
+              label: 'Amazon Membership',
               onChange: updateBudgetedAmazonMembership,
               value: budgetedAmazonMembership,
             },
             {
-              label: "Spotify",
+              label: 'Spotify',
               onChange: updateBudgetedSpotify,
               value: budgetedSpotify,
             },
             {
-              label: "Costco",
+              label: 'Costco',
               onChange: updateBudgetedCostco,
               value: budgetedCostco,
             },
             {
-              label: "Website Domain",
+              label: 'Website Domain',
               onChange: updateBudgetedDomain,
               value: budgetedDomain,
             },
             {
-              label: "Petco Vital Care (12 months)",
+              label: 'Petco Vital Care (12 months)',
               onChange: updateBudgetedPetco,
               value: budgetedPetco,
             },
             {
-              label: "DirecTV (split w mom/amy)",
+              label: 'DirecTV (split w mom/amy)',
               onChange: updateBudgetedTv,
               value: budgetedTv,
             },
             {
-              label: "Alltrails Premium",
+              label: 'Alltrails Premium',
               onChange: updateBudgetedAllTrails,
               value: budgetedAllTrails,
             },
@@ -242,23 +238,23 @@ export const Fixed = ({
         <Generator
           sectionTitle="Difference"
           fields={[
-            { label: "Rent", value: differenceRent },
+            { label: 'Rent', value: differenceRent },
             { label: "Renter's Insurance", value: differenceRentersInsurance },
-            { label: "Internet", value: differenceInternet },
+            { label: 'Internet', value: differenceInternet },
             {
-              label: "[AUTO] Health, Dental Insurance, HSA",
+              label: '[AUTO] Health, Dental Insurance, HSA',
               value: differenceHealthInsurance,
             },
-            { label: "Car Insurance", value: differenceCarInsurance },
-            { label: "Cell Phone", value: differenceCellPhone },
-            { label: "Gym Membership", value: differenceGymMembership },
-            { label: "Amazon Membership", value: differenceAmazonMembership },
-            { label: "Spotify", value: differenceSpotify },
-            { label: "Costco", value: differenceCostco },
-            { label: "Website Domain", value: differenceDomain },
-            { label: "Petco Vital Care (12 months)", value: differencePetco },
-            { label: "DirecTV (split w mom/amy)", value: differenceTv },
-            { label: "Alltrails Premium", value: differenceAllTrails },
+            { label: 'Car Insurance', value: differenceCarInsurance },
+            { label: 'Cell Phone', value: differenceCellPhone },
+            { label: 'Gym Membership', value: differenceGymMembership },
+            { label: 'Amazon Membership', value: differenceAmazonMembership },
+            { label: 'Spotify', value: differenceSpotify },
+            { label: 'Costco', value: differenceCostco },
+            { label: 'Website Domain', value: differenceDomain },
+            { label: 'Petco Vital Care (12 months)', value: differencePetco },
+            { label: 'DirecTV (split w mom/amy)', value: differenceTv },
+            { label: 'Alltrails Premium', value: differenceAllTrails },
           ]}
           total={difference}
         />

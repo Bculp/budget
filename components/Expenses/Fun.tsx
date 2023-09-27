@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { Title } from "@mantine/core";
-import styles from "../Shared/Layout.module.css";
-import { Generator } from "../Shared/Generator";
-import type { ExpenseTotal } from "~/routes/_index";
+import { useEffect, useState } from 'react';
+import { Title } from '@mantine/core';
+import styles from '../Shared/Layout.module.css';
+import { Generator } from '../Shared/Generator';
+import type { ExpenseTotal } from '@/app/page';
 
 export const Fun = ({
   expenseTotal,
@@ -17,21 +17,12 @@ export const Fun = ({
   const [entertainmentActivities, updateEntertainmentActivities] = useState(0);
   const [vacation, updateVacation] = useState(0);
   const [gifts, updateGifts] = useState(0);
-  const actual =
-    clothing +
-    eatingOut +
-    funPurchases +
-    entertainmentActivities +
-    vacation +
-    gifts;
+  const actual = clothing + eatingOut + funPurchases + entertainmentActivities + vacation + gifts;
 
   const [budgetedClothing, updateBudgetedClothing] = useState(0);
   const [budgetedEatingOut, updateBudgetedEatingOut] = useState(0);
   const [budgetedFunPurchases, updateBudgetedFunPurchases] = useState(0);
-  const [
-    budgetedEntertainmentActivities,
-    updateBudgetedEntertainmentActivities,
-  ] = useState(0);
+  const [budgetedEntertainmentActivities, updateBudgetedEntertainmentActivities] = useState(0);
   const [budgetedVacation, updateBudgetedVacation] = useState(0);
   const [budgetedGifts, updateBudgetedGifts] = useState(0);
   const budgeted =
@@ -67,32 +58,32 @@ export const Fun = ({
           sectionTitle="Actual"
           fields={[
             {
-              label: "Clothing",
+              label: 'Clothing',
               onChange: updateClothing,
               value: clothing,
             },
             {
-              label: "Eating Out",
+              label: 'Eating Out',
               onChange: updateEatingOut,
               value: eatingOut,
             },
             {
-              label: "Fun Purchases",
+              label: 'Fun Purchases',
               onChange: updateFunPurchases,
               value: funPurchases,
             },
             {
-              label: "Entertainment/Activities",
+              label: 'Entertainment/Activities',
               onChange: updateEntertainmentActivities,
               value: entertainmentActivities,
             },
             {
-              label: "Vacation",
+              label: 'Vacation',
               onChange: updateVacation,
               value: vacation,
             },
             {
-              label: "Gifts",
+              label: 'Gifts',
               onChange: updateGifts,
               value: gifts,
             },
@@ -105,32 +96,32 @@ export const Fun = ({
           sectionTitle="Budgeted"
           fields={[
             {
-              label: "Clothing",
+              label: 'Clothing',
               onChange: updateBudgetedClothing,
               value: budgetedClothing,
             },
             {
-              label: "Water",
+              label: 'Water',
               onChange: updateBudgetedEatingOut,
               value: budgetedEatingOut,
             },
             {
-              label: "Fun Purchases",
+              label: 'Fun Purchases',
               onChange: updateBudgetedFunPurchases,
               value: budgetedFunPurchases,
             },
             {
-              label: "Entertainment/Activities",
+              label: 'Entertainment/Activities',
               onChange: updateBudgetedEntertainmentActivities,
               value: budgetedEntertainmentActivities,
             },
             {
-              label: "Vacation",
+              label: 'Vacation',
               onChange: updateBudgetedVacation,
               value: budgetedVacation,
             },
             {
-              label: "Gifts",
+              label: 'Gifts',
               onChange: updateBudgetedGifts,
               value: budgetedGifts,
             },
@@ -142,18 +133,18 @@ export const Fun = ({
         <Generator
           sectionTitle="Difference"
           fields={[
-            { label: "Clothing", value: differenceClothing },
-            { label: "Water", value: differenceEatingOut },
+            { label: 'Clothing', value: differenceClothing },
+            { label: 'Water', value: differenceEatingOut },
             {
-              label: "Fun Purchases",
+              label: 'Fun Purchases',
               value: differenceFunPurchases,
             },
             {
-              label: "Entertainment/Activities",
+              label: 'Entertainment/Activities',
               value: differenceEntertainmentActivities,
             },
-            { label: "Vacation", value: differenceVacation },
-            { label: "Gifts", value: differenceGifts },
+            { label: 'Vacation', value: differenceVacation },
+            { label: 'Gifts', value: differenceGifts },
           ]}
           total={difference}
         />

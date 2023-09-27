@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { ActionIcon, Collapse, Group, Title } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
-import styles from "../Shared/Layout.module.css";
-import { Generator } from "../Shared/Generator";
+import { useEffect, useState } from 'react';
+import { ActionIcon, Collapse, Group, Title } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
+import styles from '../Shared/Layout.module.css';
+import { Generator } from '../Shared/Generator';
 
 export const Income = ({ updateIncomeTotal }: { updateIncomeTotal: any }) => {
   const [opened, { toggle }] = useDisclosure(false);
@@ -27,9 +27,7 @@ export const Income = ({ updateIncomeTotal }: { updateIncomeTotal: any }) => {
     <div>
       <Group>
         <Title order={2}>Income</Title>
-        <ActionIcon onClick={toggle}>
-          {opened ? <IconChevronUp /> : <IconChevronDown />}
-        </ActionIcon>
+        <ActionIcon onClick={toggle}>{opened ? <IconChevronUp /> : <IconChevronDown />}</ActionIcon>
       </Group>
       <Collapse in={opened}>
         <div className={styles.container}>
@@ -37,8 +35,8 @@ export const Income = ({ updateIncomeTotal }: { updateIncomeTotal: any }) => {
           <Generator
             sectionTitle="Actual"
             fields={[
-              { label: "Job", onChange: updateJob, value: job },
-              { label: "Other Earnings", onChange: updateOther, value: other },
+              { label: 'Job', onChange: updateJob, value: job },
+              { label: 'Other Earnings', onChange: updateOther, value: other },
             ]}
             total={actual}
           />
@@ -47,9 +45,9 @@ export const Income = ({ updateIncomeTotal }: { updateIncomeTotal: any }) => {
           <Generator
             sectionTitle="Budgeted"
             fields={[
-              { label: "Job", onChange: updateBudgetedJob, value: budgetedJob },
+              { label: 'Job', onChange: updateBudgetedJob, value: budgetedJob },
               {
-                label: "Other Earnings",
+                label: 'Other Earnings',
                 onChange: updateBudgetedOther,
                 value: budgetedOther,
               },
@@ -62,11 +60,11 @@ export const Income = ({ updateIncomeTotal }: { updateIncomeTotal: any }) => {
             sectionTitle="Difference"
             fields={[
               {
-                label: "Job",
+                label: 'Job',
                 value: differenceJob,
               },
               {
-                label: "Other Earnings",
+                label: 'Other Earnings',
                 value: differenceOther,
               },
             ]}
