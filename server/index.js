@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { Dog } = require('./db/models/totals');
+const { Income } = require('./db/models/income');
 const app = express();
 const port = 4000;
 
@@ -15,6 +16,11 @@ app.get('/dogs', async (req, res) => {
   return res.status(200).json(allDogs);
 });
 
+app.get('/income', async (req, res) => {
+  const allIncome = await Income.find();
+  return res.status(200).json(allIncome);
+});
+
 app.get('/dogs/:id', async (req, res) => {
   const { id } = req.params;
   const dog = await Dog.findById(id);
@@ -25,6 +31,12 @@ app.post('/dogs', async (req, res) => {
   const newDog = new Dog({ ...req.body });
   const insertedDog = await newDog.save();
   return res.status(201).json(insertedDog);
+});
+
+app.post('/income', async (req, res) => {
+  const newIncome = new Income({ ...req.body });
+  const insertedIncome = await newIncome.save();
+  return res.status(201).json(insertedIncome);
 });
 
 app.put('/dogs/:id', async (req, res) => {
