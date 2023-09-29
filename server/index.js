@@ -1,9 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { Dog } = require('./db/models/totals');
-const { Income } = require('./db/models/income');
+const { Month } = require('./db/models/month');
 const app = express();
 const port = 4000;
+
+const formatId = (year, month) => {
+  const formattedYear = String(year);
+  const formattedMonth = month.toLowerCase();
+  return `${formattedYear}-${formattedMonth}`;
+};
 
 app.use(express.json());
 
@@ -16,9 +22,9 @@ app.get('/dogs', async (req, res) => {
   return res.status(200).json(allDogs);
 });
 
-app.get('/income', async (req, res) => {
-  const allIncome = await Income.find();
-  return res.status(200).json(allIncome);
+app.get('/month', async (req, res) => {
+  const allMonths = await Month.find();
+  return res.status(200).json(allMonths);
 });
 
 app.get('/dogs/:id', async (req, res) => {
@@ -27,16 +33,25 @@ app.get('/dogs/:id', async (req, res) => {
   return res.status(200).json(dog);
 });
 
+app.get('/month/:id', async (req, res) => {
+  const { id } = req.params;
+  const month = await Month.find({ id });
+  return res.status(200).json(month);
+});
+
 app.post('/dogs', async (req, res) => {
   const newDog = new Dog({ ...req.body });
   const insertedDog = await newDog.save();
   return res.status(201).json(insertedDog);
 });
 
-app.post('/income', async (req, res) => {
-  const newIncome = new Income({ ...req.body });
-  const insertedIncome = await newIncome.save();
-  return res.status(201).json(insertedIncome);
+app.post('/month', async (req, res) => {
+  const newMonth = new Month({
+    ...req.body,
+    id: formatId(req.body.year, req.body.month),
+  });
+  const insertedMonth = await newMonth.save();
+  return res.status(201).json(insertedMonth);
 });
 
 app.put('/dogs/:id', async (req, res) => {
