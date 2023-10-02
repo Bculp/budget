@@ -53,6 +53,10 @@ app.put('/month/:id', async (req, res) => {
       $set: {
         Income: { ...month.Income, ...req.body.Income },
         Expenses: { ...month.Expenses, ...req.body.Expenses },
+        Investments: { ...month.Investments, ...req.body.Investments },
+        Totals: { ...month.Totals, ...req.body.Totals },
+        Savings: { ...month.Savings, ...req.body.Savings },
+        InvestmentChecking: { ...month.InvestmentChecking, ...req.body.InvestmentChecking },
       },
     },
     { new: true }
