@@ -23,6 +23,7 @@
     "@mantine/hooks": "7.0.1",
     "@next/bundle-analyzer": "^13.5.3",
     "@tabler/icons-react": "^2.20.0",
+    "axios": "^1.5.1",
     "express": "^4.18.2",
     "mongoose": "^7.5.3",
     "next": "13.5.3",
