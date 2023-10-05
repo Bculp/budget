@@ -2,6 +2,28 @@ import axios from 'axios';
 
 const url = 'http://localhost:4000';
 
+interface Month {
+  month: String;
+  year: Number;
+  Income: {
+    job: {
+      actual: Number;
+      budgeted: Number;
+      difference: Number;
+    };
+    other: {
+      actual: Number;
+      budgeted: Number;
+      difference: Number;
+    };
+    total: {
+      actual: Number;
+      budgeted: Number;
+      difference: Number;
+    };
+  };
+}
+
 export const getAllMonths = async () => {
   try {
     const response = await axios.get(`${url}/month`);
@@ -20,7 +42,7 @@ export const getMonth = async (id: string) => {
   }
 };
 
-export const createMonth = async (body: any) => {
+export const createMonth = async (body: Month) => {
   try {
     const response = await axios.post(`${url}/month`, body);
     console.log(response);

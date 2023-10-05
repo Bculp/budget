@@ -1,27 +1,27 @@
-import { useEffect, useState } from 'react';
 import { ActionIcon, Collapse, Group, Title } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
-import styles from '../Shared/Layout.module.css';
 import { Generator } from '../Shared/Generator';
+import styles from '../Shared/Layout.module.css';
 
-export const Income = ({ updateIncomeTotal }: { updateIncomeTotal: any }) => {
+export const Income = ({
+  income,
+  jobDifference,
+  mergeIncomeUpdate,
+  otherDifference,
+  totalActualIncome,
+  totalBudgetedIncome,
+  totalDifferenceIncome,
+}: {
+  income: any;
+  jobDifference: number;
+  mergeIncomeUpdate: any;
+  otherDifference: number;
+  totalActualIncome: number;
+  totalBudgetedIncome: number;
+  totalDifferenceIncome: number;
+}) => {
   const [opened, { toggle }] = useDisclosure(false);
-  const [job, updateJob] = useState(0);
-  const [other, updateOther] = useState(0);
-  const actual = job + other;
-
-  const [budgetedJob, updateBudgetedJob] = useState(0);
-  const [budgetedOther, updateBudgetedOther] = useState(0);
-  const budgeted = budgetedJob + budgetedOther;
-
-  const differenceJob = budgetedJob - job;
-  const differenceOther = budgetedOther - other;
-  const difference = budgeted - actual;
-
-  useEffect(() => {
-    updateIncomeTotal(actual);
-  }, [actual, updateIncomeTotal]);
 
   return (
     <div>
@@ -35,24 +35,36 @@ export const Income = ({ updateIncomeTotal }: { updateIncomeTotal: any }) => {
           <Generator
             sectionTitle="Actual"
             fields={[
-              { label: 'Job', onChange: updateJob, value: job },
-              { label: 'Other Earnings', onChange: updateOther, value: other },
+              {
+                label: 'Job',
+                onChange: (value: number) => mergeIncomeUpdate('job', 'actual', value),
+                value: income.job.actual,
+              },
+              {
+                label: 'Other Earnings',
+                onChange: (value: number) => mergeIncomeUpdate('other', 'actual', value),
+                value: income.other.actual,
+              },
             ]}
-            total={actual}
+            total={totalActualIncome}
           />
 
           {/* Budgeted */}
           <Generator
             sectionTitle="Budgeted"
             fields={[
-              { label: 'Job', onChange: updateBudgetedJob, value: budgetedJob },
+              {
+                label: 'Job',
+                onChange: (value: number) => mergeIncomeUpdate('job', 'budgeted', value),
+                value: income.job.budgeted,
+              },
               {
                 label: 'Other Earnings',
-                onChange: updateBudgetedOther,
-                value: budgetedOther,
+                onChange: (value: number) => mergeIncomeUpdate('other', 'budgeted', value),
+                value: income.other.budgeted,
               },
             ]}
-            total={budgeted}
+            total={totalBudgetedIncome}
           />
 
           {/* Difference */}
@@ -61,14 +73,14 @@ export const Income = ({ updateIncomeTotal }: { updateIncomeTotal: any }) => {
             fields={[
               {
                 label: 'Job',
-                value: differenceJob,
+                value: jobDifference,
               },
               {
                 label: 'Other Earnings',
-                value: differenceOther,
+                value: otherDifference,
               },
             ]}
-            total={difference}
+            total={totalDifferenceIncome}
           />
         </div>
       </Collapse>
