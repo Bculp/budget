@@ -1,28 +1,7 @@
 import axios from 'axios';
+import { Month } from './Types/Month';
 
 const url = 'http://localhost:4000';
-
-interface Month {
-  month: String;
-  year: Number;
-  Income: {
-    job: {
-      actual: Number;
-      budgeted: Number;
-      difference: Number;
-    };
-    other: {
-      actual: Number;
-      budgeted: Number;
-      difference: Number;
-    };
-    total: {
-      actual: Number;
-      budgeted: Number;
-      difference: Number;
-    };
-  };
-}
 
 export const getAllMonths = async () => {
   try {

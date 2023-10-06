@@ -7,12 +7,38 @@ import { Fun } from './Fun';
 import type { ExpenseTotal } from '@/app/page';
 
 export const Expenses = ({
-  expenseTotal,
-  updateExpenseTotal,
+  mergeExpenseUpdate,
+  expenses,
+  totalDifferenceExpenses,
+  fixed,
+  variable,
+  fun,
 }: {
-  expenseTotal: ExpenseTotal;
-  updateExpenseTotal: any;
+  mergeExpenseUpdate: any;
+  expenses: any;
+  totalDifferenceExpenses: number;
+  fixed: object;
+  variable: object;
+  fun: object;
 }) => {
+  const fixedProps = {
+    mergeExpenseUpdate,
+    expenses,
+    totalDifferenceExpenses,
+    fixed,
+  };
+  const variableProps = {
+    mergeExpenseUpdate,
+    expenses,
+    totalDifferenceExpenses,
+    variable,
+  };
+  const funProps = {
+    mergeExpenseUpdate,
+    expenses,
+    totalDifferenceExpenses,
+    fun,
+  };
   const [opened, { toggle }] = useDisclosure(false);
   return (
     <div>
@@ -21,9 +47,9 @@ export const Expenses = ({
         <ActionIcon onClick={toggle}>{opened ? <IconChevronUp /> : <IconChevronDown />}</ActionIcon>
       </Group>
       <Collapse in={opened}>
-        <Fixed expenseTotal={expenseTotal} updateExpenseTotal={updateExpenseTotal} />
-        <Variable expenseTotal={expenseTotal} updateExpenseTotal={updateExpenseTotal} />
-        <Fun expenseTotal={expenseTotal} updateExpenseTotal={updateExpenseTotal} />
+        <Fixed {...fixedProps} />
+        {/* <Variable {...variableProps} /> */}
+        {/* <Fun {...funProps} /> */}
       </Collapse>
     </div>
   );
