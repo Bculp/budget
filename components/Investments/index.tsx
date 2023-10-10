@@ -1,47 +1,31 @@
-import { useEffect, useState } from 'react';
 import { ActionIcon, Collapse, Group, Title } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
-import styles from '../Shared/Layout.module.css';
 import { Generator } from '../Shared/Generator';
+import styles from '../Shared/Layout.module.css';
 
 export const Investments = ({
-  rothIRA,
-  updateRothIRA,
-  individualInvestments,
-  updateIndividualInvestments,
-  mutualFunds,
-  updateMutualFunds,
-  updateInvestmentTotal,
+  investments,
+  mergeInvestmentUpdate,
+  roth401kDifference,
+  rothIRADifference,
+  individualInvestmentsDifference,
+  mutualFundsDifference,
+  totalActualInvestments,
+  totalBudgetedInvestments,
+  totalDifferenceInvestments,
 }: {
-  rothIRA: number;
-  updateRothIRA: any;
-  individualInvestments: number;
-  updateIndividualInvestments: any;
-  mutualFunds: number;
-  updateMutualFunds: any;
-  updateInvestmentTotal: any;
+  investments: any;
+  mergeInvestmentUpdate: any;
+  roth401kDifference: number;
+  rothIRADifference: number;
+  individualInvestmentsDifference: number;
+  mutualFundsDifference: number;
+  totalActualInvestments: number;
+  totalBudgetedInvestments: number;
+  totalDifferenceInvestments: number;
 }) => {
   const [opened, { toggle }] = useDisclosure(false);
-  const [roth401k, updateRoth401k] = useState(0);
-  const actual = roth401k + rothIRA + individualInvestments + mutualFunds;
-
-  const [budgetedRoth401k, updateBudgetedRoth401k] = useState(0);
-  const [budgetedRothIRA, updateBudgetedRothIRA] = useState(0);
-  const [budgetedIndividualInvestments, updateBudgetedIndividualInvestments] = useState(0);
-  const [budgetedMutualFunds, updateBudgetedMutualFunds] = useState(0);
-  const budgeted =
-    budgetedRoth401k + budgetedRothIRA + budgetedIndividualInvestments + budgetedMutualFunds;
-
-  const differenceRoth401k = budgetedRoth401k - roth401k;
-  const differenceRothIRA = budgetedRothIRA - rothIRA;
-  const differenceIndividualInvestments = budgetedIndividualInvestments - individualInvestments;
-  const differenceMutualFunds = budgetedMutualFunds - mutualFunds;
-  const difference = budgeted - actual;
-
-  useEffect(() => {
-    updateInvestmentTotal(actual);
-  }, [actual, updateInvestmentTotal]);
 
   return (
     <div>
@@ -57,26 +41,27 @@ export const Investments = ({
             fields={[
               {
                 label: '[AUTO] Roth 401k (12%)',
-                onChange: updateRoth401k,
-                value: roth401k,
+                onChange: (value: number) => mergeInvestmentUpdate('roth401k', 'actual', value),
+                value: investments.roth401k.actual,
               },
               {
                 label: 'Roth IRA (10.75%)',
-                onChange: updateRothIRA,
-                value: rothIRA,
+                onChange: (value: number) => mergeInvestmentUpdate('rothIRA', 'actual', value),
+                value: investments.rothIRA.actual,
               },
               {
                 label: 'Individual Investments (9%)',
-                onChange: updateIndividualInvestments,
-                value: individualInvestments,
+                onChange: (value: number) =>
+                  mergeInvestmentUpdate('individualInvestments', 'actual', value),
+                value: investments.individualInvestments.actual,
               },
               {
                 label: 'ETFs/Mutual Funds (19.25%)',
-                onChange: updateMutualFunds,
-                value: mutualFunds,
+                onChange: (value: number) => mergeInvestmentUpdate('mutualFunds', 'actual', value),
+                value: investments.mutualFunds.actual,
               },
             ]}
-            total={actual}
+            total={totalActualInvestments}
           />
 
           {/* Budgeted */}
@@ -85,44 +70,46 @@ export const Investments = ({
             fields={[
               {
                 label: '[AUTO] Roth 401k (12%)',
-                onChange: updateBudgetedRoth401k,
-                value: budgetedRoth401k,
+                onChange: (value: number) => mergeInvestmentUpdate('roth401k', 'budgeted', value),
+                value: investments.roth401k.budgeted,
               },
               {
                 label: 'Roth IRA (10.75%)',
-                onChange: updateBudgetedRothIRA,
-                value: budgetedRothIRA,
+                onChange: (value: number) => mergeInvestmentUpdate('rothIRA', 'budgeted', value),
+                value: investments.rothIRA.budgeted,
               },
               {
                 label: 'Individual Investments (9%)',
-                onChange: updateBudgetedIndividualInvestments,
-                value: budgetedIndividualInvestments,
+                onChange: (value: number) =>
+                  mergeInvestmentUpdate('individualInvestments', 'budgeted', value),
+                value: investments.individualInvestments.budgeted,
               },
               {
                 label: 'ETFs/Mutual Funds (19.25%)',
-                onChange: updateBudgetedMutualFunds,
-                value: budgetedMutualFunds,
+                onChange: (value: number) =>
+                  mergeInvestmentUpdate('mutualFunds', 'budgeted', value),
+                value: investments.mutualFunds.budgeted,
               },
             ]}
-            total={budgeted}
+            total={totalBudgetedInvestments}
           />
 
           {/* Difference */}
           <Generator
             sectionTitle="Difference"
             fields={[
-              { label: '[AUTO] Roth 401k (12%)', value: differenceRoth401k },
-              { label: 'Roth IRA (10.75%)', value: differenceRothIRA },
+              { label: '[AUTO] Roth 401k (12%)', value: roth401kDifference },
+              { label: 'Roth IRA (10.75%)', value: rothIRADifference },
               {
                 label: 'Individual Investments (9%)',
-                value: differenceIndividualInvestments,
+                value: individualInvestmentsDifference,
               },
               {
                 label: 'ETFs/Mutual Funds (19.25%)',
-                value: differenceMutualFunds,
+                value: mutualFundsDifference,
               },
             ]}
-            total={difference}
+            total={totalDifferenceInvestments}
           />
         </div>
       </Collapse>

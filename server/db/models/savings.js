@@ -1,9 +1,7 @@
 const SavingsSchema = {
-  savingsTotal: {
-    actual: Number,
-    budgeted: Number,
-    difference: Number,
-  },
+  actual: Number,
+  budgeted: Number,
+  difference: Number,
 };
 
 module.exports = { SavingsSchema };

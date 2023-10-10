@@ -1,6 +1,6 @@
 import { Group, Title } from '@mantine/core';
-import styles from '../Shared/Layout.module.css';
 import { NumberInput } from '../Shared/NumberInput';
+import styles from '../Shared/Layout.module.css';
 
 export const Totals = ({
   income,

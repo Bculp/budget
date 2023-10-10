@@ -11,30 +11,7 @@ import { InvestmentChecking } from '../components/InvestmentChecking';
 import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeToggle';
 import { createMonth, getAllMonths, updateMonth } from '@/components/Shared/api';
 
-export interface ExpenseTotal {
-  fixed: number;
-  variable: number;
-  fun: number;
-}
-
 export default function HomePage() {
-  const [incomeTotal, updateIncomeTotal] = useState(0);
-  const [expenseTotal, updateExpenseTotal] = useState({
-    fixed: 0,
-    variable: 0,
-    fun: 0,
-  });
-  // const expenses = expenseTotal.fixed + expenseTotal.variable + expenseTotal.fun;
-  const [investmentTotal, updateInvestmentTotal] = useState(0);
-  // const amtAvailableToInvest = incomeTotal - expenses;
-  // const savings = amtAvailableToInvest - investmentTotal;
-
-  const [rothIRA, updateRothIRA] = useState(0);
-  const [individualInvestments, updateIndividualInvestments] = useState(0);
-  const [mutualFunds, updateMutualFunds] = useState(0);
-
-  //  ------ TODO: ----------- //
-
   // once i get the structure in place, i don't need the default values here.
   const [income, updateIncome] = useState({
     job: {
@@ -66,10 +43,6 @@ export default function HomePage() {
   };
 
   const [expenses, updateExpenses] = useState({
-    total: {
-      actual: 0,
-      budgeted: 0,
-    },
     fixed: {
       rent: {
         actual: 0,
@@ -278,9 +251,36 @@ export default function HomePage() {
     expenses.fixed.tv.budgeted +
     expenses.fixed.allTrails.budgeted;
 
-  const totalFixedDifference = totalBudgetedFixedExpenses - totalActualFixedExpenses;
+  const totalDifferenceFixedExpenses = totalBudgetedFixedExpenses - totalActualFixedExpenses;
 
-  const eletricDifference = getExpenseDifference('variable', 'eletric');
+  const totalActualVariableExpenses =
+    expenses.variable.electric.actual +
+    expenses.variable.water.actual +
+    expenses.variable.carFuel.actual +
+    expenses.variable.tolls.actual +
+    expenses.variable.groceries.actual +
+    expenses.variable.householdProducts.actual +
+    expenses.variable.carMaintenance.actual +
+    expenses.variable.haircut.actual +
+    expenses.variable.personalCareDoctor.actual +
+    expenses.variable.dogSupplies.actual;
+
+  const totalBudgetedVariableExpenses =
+    expenses.variable.electric.budgeted +
+    expenses.variable.water.budgeted +
+    expenses.variable.carFuel.budgeted +
+    expenses.variable.tolls.budgeted +
+    expenses.variable.groceries.budgeted +
+    expenses.variable.householdProducts.budgeted +
+    expenses.variable.carMaintenance.budgeted +
+    expenses.variable.haircut.budgeted +
+    expenses.variable.personalCareDoctor.budgeted +
+    expenses.variable.dogSupplies.budgeted;
+
+  const totalDifferenceVariableExpenses =
+    totalBudgetedVariableExpenses - totalActualVariableExpenses;
+
+  const electricDifference = getExpenseDifference('variable', 'electric');
   const waterDifference = getExpenseDifference('variable', 'water');
   const carFuelDifference = getExpenseDifference('variable', 'carFuel');
   const tollsDifference = getExpenseDifference('variable', 'tolls');
@@ -291,12 +291,36 @@ export default function HomePage() {
   const personalCareDoctorDifference = getExpenseDifference('variable', 'personalCareDoctor');
   const dogSuppliesDifference = getExpenseDifference('variable', 'dogSupplies');
 
+  const totalActualFunExpenses =
+    expenses.fun.clothing.actual +
+    expenses.fun.eatingOut.actual +
+    expenses.fun.funPurchases.actual +
+    expenses.fun.entertainmentActivities.actual +
+    expenses.fun.vacation.actual +
+    expenses.fun.gifts.actual;
+
+  const totalBudgetedFunExpenses =
+    expenses.fun.clothing.budgeted +
+    expenses.fun.eatingOut.budgeted +
+    expenses.fun.funPurchases.budgeted +
+    expenses.fun.entertainmentActivities.budgeted +
+    expenses.fun.vacation.budgeted +
+    expenses.fun.gifts.budgeted;
+
+  const totalDifferenceFunExpenses = totalBudgetedFunExpenses - totalActualFunExpenses;
+
   const clothingDifference = getExpenseDifference('fun', 'clothing');
   const eatingOutDifference = getExpenseDifference('fun', 'eatingOut');
   const funPurchasesDifference = getExpenseDifference('fun', 'funPurchases');
   const entertainmentActivitiesDifference = getExpenseDifference('fun', 'entertainmentActivities');
   const vacationDifference = getExpenseDifference('fun', 'vacation');
   const giftsDifference = getExpenseDifference('fun', 'gifts');
+
+  const totalActualExpenses =
+    totalActualFixedExpenses + totalActualVariableExpenses + totalActualFunExpenses;
+  const totalBudgetedExpenses =
+    totalBudgetedFixedExpenses + totalBudgetedVariableExpenses + totalBudgetedFunExpenses;
+  const totalDifferenceExpenses = totalBudgetedExpenses - totalActualExpenses;
 
   const expenseProps = {
     mergeExpenseUpdate,
@@ -318,10 +342,10 @@ export default function HomePage() {
       allTrailsDifference,
       totalActualFixedExpenses,
       totalBudgetedFixedExpenses,
-      totalFixedDifference,
+      totalDifferenceFixedExpenses,
     },
     variable: {
-      eletricDifference,
+      electricDifference,
       waterDifference,
       carFuelDifference,
       tollsDifference,
@@ -331,6 +355,9 @@ export default function HomePage() {
       haircutDifference,
       personalCareDoctorDifference,
       dogSuppliesDifference,
+      totalActualVariableExpenses,
+      totalBudgetedVariableExpenses,
+      totalDifferenceVariableExpenses,
     },
     fun: {
       clothingDifference,
@@ -339,8 +366,90 @@ export default function HomePage() {
       entertainmentActivitiesDifference,
       vacationDifference,
       giftsDifference,
+      totalActualFunExpenses,
+      totalBudgetedFunExpenses,
+      totalDifferenceFunExpenses,
     },
   };
+
+  const [investments, updateInvestments] = useState({
+    roth401k: {
+      actual: 0,
+      budgeted: 0,
+    },
+    rothIRA: {
+      actual: 0,
+      budgeted: 0,
+    },
+    individualInvestments: {
+      actual: 0,
+      budgeted: 0,
+    },
+    mutualFunds: {
+      actual: 0,
+      budgeted: 0,
+    },
+  });
+
+  const mergeInvestmentUpdate = (category: string, type: string, value: number) => {
+    const newState = {
+      ...investments,
+      [category]: {
+        // @ts-ignore
+        ...{ ...income[category] },
+        [type]: value,
+      },
+    };
+
+    updateInvestments(newState);
+  };
+
+  const getInvestmentDifference = (title: any) => {
+    return (
+      investments &&
+      // @ts-ignore
+      investments[title] &&
+      // @ts-ignore
+      investments[title].budgeted - investments[title].actual
+    );
+  };
+
+  const roth401kDifference = getInvestmentDifference('roth401k');
+  const rothIRADifference = getInvestmentDifference('rothIRA');
+  const individualInvestmentsDifference = getInvestmentDifference('individualInvestments');
+  const mutualFundsDifference = getInvestmentDifference('mutualFunds');
+  const totalActualInvestments =
+    investments.roth401k.actual +
+    investments.rothIRA.actual +
+    investments.individualInvestments.actual +
+    investments.mutualFunds.actual;
+
+  const totalBudgetedInvestments =
+    investments.roth401k.budgeted +
+    investments.rothIRA.budgeted +
+    investments.individualInvestments.budgeted +
+    investments.mutualFunds.budgeted;
+
+  const totalDifferenceInvestments = totalBudgetedInvestments - totalActualInvestments;
+
+  const amtAvailableToInvest = totalActualIncome - totalActualExpenses;
+  const amtRemaining = amtAvailableToInvest - totalActualInvestments;
+
+  const [savings, updateSavings] = useState({
+    actual: 0,
+    budgeted: 0,
+  });
+
+  const mergeSavingsUpdate = (type: string, value: number) => {
+    const newState = {
+      ...savings,
+      [type]: value,
+    };
+
+    updateSavings(newState);
+  };
+
+  const savingsDifference = savings.budgeted - savings.actual;
 
   // when fetching data can just do this to wholesale replace state
   /*
@@ -373,6 +482,194 @@ export default function HomePage() {
           difference: totalDifferenceIncome,
         },
       },
+      Expenses: {
+        total: {
+          actual: totalActualExpenses,
+          budgeted: totalBudgetedExpenses,
+          difference: totalDifferenceExpenses,
+        },
+        fixed: {
+          rent: {
+            ...expenses.fixed.rent,
+            difference: rentDifference,
+          },
+          rentersInsurance: {
+            ...expenses.fixed.rentersInsurance,
+            difference: rentersInsuranceDifference,
+          },
+          internet: {
+            ...expenses.fixed.internet,
+            difference: internetDifference,
+          },
+          healthInsurance: {
+            ...expenses.fixed.healthInsurance,
+            difference: healthInsuranceDifference,
+          },
+          carInsurance: {
+            ...expenses.fixed.carInsurance,
+            difference: carInsuranceDifference,
+          },
+          cellPhone: {
+            ...expenses.fixed.cellPhone,
+            difference: cellPhoneDifference,
+          },
+          gymMembership: {
+            ...expenses.fixed.gymMembership,
+            difference: gymMembershipDifference,
+          },
+          amazonMembership: {
+            ...expenses.fixed.amazonMembership,
+            difference: amazonMembershipDifference,
+          },
+          spotify: {
+            ...expenses.fixed.spotify,
+            difference: spotifyDifference,
+          },
+          costco: {
+            ...expenses.fixed.costco,
+            difference: costcoDifference,
+          },
+          domain: {
+            ...expenses.fixed.domain,
+            difference: domainDifference,
+          },
+          petco: {
+            ...expenses.fixed.petco,
+            difference: petcoDifference,
+          },
+          tv: {
+            ...expenses.fixed.tv,
+            difference: tvDifference,
+          },
+          allTrails: {
+            ...expenses.fixed.allTrails,
+            difference: allTrailsDifference,
+          },
+          total: {
+            actual: totalActualFixedExpenses,
+            budgeted: totalBudgetedFixedExpenses,
+            difference: totalDifferenceFixedExpenses,
+          },
+        },
+        variable: {
+          electric: {
+            ...expenses.variable.electric,
+            difference: electricDifference,
+          },
+          water: {
+            ...expenses.variable.water,
+            difference: waterDifference,
+          },
+          carFuel: {
+            ...expenses.variable.carFuel,
+            difference: carFuelDifference,
+          },
+          tolls: {
+            ...expenses.variable.tolls,
+            difference: tollsDifference,
+          },
+          groceries: {
+            ...expenses.variable.groceries,
+            difference: groceriesDifference,
+          },
+          householdProducts: {
+            ...expenses.variable.householdProducts,
+            difference: householdProductsDifference,
+          },
+          carMaintenance: {
+            ...expenses.variable.carMaintenance,
+            difference: carMaintenanceDifference,
+          },
+          haircut: {
+            ...expenses.variable.haircut,
+            difference: haircutDifference,
+          },
+          personalCareDoctor: {
+            ...expenses.variable.personalCareDoctor,
+            difference: personalCareDoctorDifference,
+          },
+          dogSupplies: {
+            ...expenses.variable.dogSupplies,
+            difference: dogSuppliesDifference,
+          },
+          total: {
+            actual: totalActualVariableExpenses,
+            budgeted: totalBudgetedVariableExpenses,
+            difference: totalDifferenceVariableExpenses,
+          },
+        },
+        fun: {
+          clothing: {
+            ...expenses.fun.clothing,
+            difference: clothingDifference,
+          },
+          eatingOut: {
+            ...expenses.fun.eatingOut,
+            difference: eatingOutDifference,
+          },
+          funPurchases: {
+            ...expenses.fun.funPurchases,
+            difference: funPurchasesDifference,
+          },
+          entertainmentActivities: {
+            ...expenses.fun.entertainmentActivities,
+            difference: entertainmentActivitiesDifference,
+          },
+          vacation: {
+            ...expenses.fun.vacation,
+            difference: vacationDifference,
+          },
+          gifts: {
+            ...expenses.fun.gifts,
+            difference: giftsDifference,
+          },
+          total: {
+            actual: totalActualFunExpenses,
+            budgeted: totalBudgetedFunExpenses,
+            difference: totalDifferenceFunExpenses,
+          },
+        },
+      },
+      Investments: {
+        roth401k: {
+          ...investments.roth401k,
+          difference: roth401kDifference,
+        },
+        rothIRA: {
+          ...investments.rothIRA,
+          difference: rothIRADifference,
+        },
+        individualInvestments: {
+          ...investments.individualInvestments,
+          difference: individualInvestmentsDifference,
+        },
+        mutualFunds: {
+          ...investments.mutualFunds,
+          difference: mutualFundsDifference,
+        },
+        total: {
+          actual: totalActualInvestments,
+          budgeted: totalBudgetedInvestments,
+          difference: totalDifferenceInvestments,
+        },
+      },
+      Totals: {
+        income: totalActualIncome,
+        expenses: totalActualExpenses,
+        investments: totalActualInvestments,
+        amtAvailableToInvest,
+        savings: amtRemaining,
+      },
+      Savings: {
+        actual: savings.actual,
+        budgeted: savings.budgeted,
+        difference: savingsDifference,
+      },
+      InvestmentChecking: {
+        rothIRA: investments.rothIRA.actual,
+        individualInvestments: investments.individualInvestments.actual,
+        mutualFunds: investments.mutualFunds.actual,
+      },
     });
   };
 
@@ -392,28 +689,33 @@ export default function HomePage() {
         totalBudgetedIncome={totalBudgetedIncome}
         totalDifferenceIncome={totalDifferenceIncome}
       />
-      {/* TODO: There's a useEffect/state issue somewhere in expenses that is causing a recursive loop. Probably what is causing my fan to spin on high all day as well! */}
       <Expenses {...expenseProps} />
       <Investments
-        rothIRA={rothIRA}
-        updateRothIRA={updateRothIRA}
-        individualInvestments={individualInvestments}
-        updateIndividualInvestments={updateIndividualInvestments}
-        updateMutualFunds={updateMutualFunds}
-        mutualFunds={mutualFunds}
-        updateInvestmentTotal={updateInvestmentTotal}
+        investments={investments}
+        mergeInvestmentUpdate={mergeInvestmentUpdate}
+        roth401kDifference={roth401kDifference}
+        rothIRADifference={rothIRADifference}
+        individualInvestmentsDifference={individualInvestmentsDifference}
+        mutualFundsDifference={mutualFundsDifference}
+        totalActualInvestments={totalActualInvestments}
+        totalBudgetedInvestments={totalBudgetedInvestments}
+        totalDifferenceInvestments={totalDifferenceInvestments}
       />
       <Totals
-        income={incomeTotal}
-        investments={investmentTotal}
-        // amtAvailableToInvest={amtAvailableToInvest}
-        // savings={savings}
+        income={totalActualIncome}
+        investments={totalActualInvestments}
+        amtAvailableToInvest={amtAvailableToInvest}
+        savings={amtRemaining}
       />
-      {/* <Savings savings={savings} /> */}
+      <Savings
+        savings={savings}
+        mergeSavingsUpdate={mergeSavingsUpdate}
+        savingsDifference={savingsDifference}
+      />
       <InvestmentChecking
-        rothIRA={rothIRA}
-        individualInvestments={individualInvestments}
-        mutualFunds={mutualFunds}
+        rothIRA={investments.rothIRA.actual}
+        individualInvestments={investments.individualInvestments.actual}
+        mutualFunds={investments.mutualFunds.actual}
       />
       <Button onClick={createNewMonth}>Create</Button>
       {/* <Button onClick={saveMonth}>Save</Button> */}

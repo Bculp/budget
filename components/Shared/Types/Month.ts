@@ -225,16 +225,15 @@ export interface Month {
   };
   Totals: {
     income: Number;
+    expenses: Number;
     investments: Number;
     amtAvailableToInvest: Number;
     savings: Number;
   };
   Savings: {
-    savingsTotal: {
-      actual: Number;
-      budgeted: Number;
-      difference: Number;
-    };
+    actual: Number;
+    budgeted: Number;
+    difference: Number;
   };
   InvestmentChecking: {
     rothIRA: Number;

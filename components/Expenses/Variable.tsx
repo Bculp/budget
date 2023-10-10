@@ -1,215 +1,172 @@
-import { useEffect, useState } from 'react';
 import { Title } from '@mantine/core';
-import styles from '../Shared/Layout.module.css';
 import { Generator } from '../Shared/Generator';
-import type { ExpenseTotal } from '@/app/page';
+import styles from '../Shared/Layout.module.css';
 
 export const Variable = ({
-  expenseTotal,
-  updateExpenseTotal,
+  mergeExpenseUpdate,
+  expenses,
+  variable,
 }: {
-  expenseTotal: ExpenseTotal;
-  updateExpenseTotal: any;
-}) => {
-  const [electric, updateElectric] = useState(0);
-  const [water, updateWater] = useState(0);
-  const [carFuel, updateCarFuel] = useState(0);
-  const [tolls, updateTolls] = useState(0);
-  const [groceries, updateGroceries] = useState(0);
-  const [householdProducts, updateHouseholdProducts] = useState(0);
-  const [carMaintenance, updateCarMaintenance] = useState(0);
-  const [haircut, updateHaircut] = useState(0);
-  const [personalCareDoctor, updatePersonalCareDoctor] = useState(0);
-  const [dogSupplies, updateDogSupplies] = useState(0);
-  const actual =
-    electric +
-    water +
-    carFuel +
-    tolls +
-    groceries +
-    householdProducts +
-    carMaintenance +
-    haircut +
-    personalCareDoctor +
-    dogSupplies;
+  mergeExpenseUpdate: any;
+  expenses: any;
+  variable: any;
+}) => (
+  <div>
+    <Title order={3}>Variable</Title>
+    <div className={styles.container}>
+      {/* Actual */}
+      <Generator
+        sectionTitle="Actual"
+        fields={[
+          {
+            label: 'Electric/Gas',
+            onChange: (value: number) =>
+              mergeExpenseUpdate('variable', 'electric', 'actual', value),
+            value: expenses.variable.electric.actual,
+          },
+          {
+            label: 'Water',
+            onChange: (value: number) => mergeExpenseUpdate('variable', 'water', 'actual', value),
+            value: expenses.variable.water.actual,
+          },
+          {
+            label: 'Car Fuel',
+            onChange: (value: number) => mergeExpenseUpdate('variable', 'carFuel', 'actual', value),
+            value: expenses.variable.carFuel.actual,
+          },
+          {
+            label: 'Tolls',
+            onChange: (value: number) => mergeExpenseUpdate('variable', 'tolls', 'actual', value),
+            value: expenses.variable.tolls.actual,
+          },
+          {
+            label: 'Groceries',
+            onChange: (value: number) =>
+              mergeExpenseUpdate('variable', 'groceries', 'actual', value),
+            value: expenses.variable.groceries.actual,
+          },
+          {
+            label: 'Household Products',
+            onChange: (value: number) =>
+              mergeExpenseUpdate('variable', 'householdProducts', 'actual', value),
+            value: expenses.variable.householdProducts.actual,
+          },
+          {
+            label: 'Car Maintenance',
+            onChange: (value: number) =>
+              mergeExpenseUpdate('variable', 'carMaintenance', 'actual', value),
+            value: expenses.variable.carMaintenance.actual,
+          },
+          {
+            label: 'Haircut',
+            onChange: (value: number) => mergeExpenseUpdate('variable', 'haircut', 'actual', value),
+            value: expenses.variable.haircut.actual,
+          },
+          {
+            label: 'Personal Care/Dr Appts',
+            onChange: (value: number) =>
+              mergeExpenseUpdate('variable', 'personalCareDoctor', 'actual', value),
+            value: expenses.variable.personalCareDoctor.actual,
+          },
+          {
+            label: 'Dog Supplies',
+            onChange: (value: number) =>
+              mergeExpenseUpdate('variable', 'dogSupplies', 'actual', value),
+            value: expenses.variable.dogSupplies.actual,
+          },
+        ]}
+        total={variable.totalActualVariableExpenses}
+      />
 
-  const [budgetedElectric, updateBudgetedRent] = useState(0);
-  const [budgetedWater, updateBudgetedWater] = useState(0);
-  const [budgetedCarFuel, updateBudgetedCarFuel] = useState(0);
-  const [budgetedTolls, updateBudgetedTolls] = useState(0);
-  const [budgetedGroceries, updateBudgetedGroceries] = useState(0);
-  const [budgetedHouseholdProducts, updateBudgetedHouseholdProducts] = useState(0);
-  const [budgetedCarMaintenance, updateBudgetedCarMaintenance] = useState(0);
-  const [budgetedHaircut, updateBudgetedHaircut] = useState(0);
-  const [budgetedPersonalCareDoctor, updateBudgetedPersonalCareDoctor] = useState(0);
-  const [budgetedDogSupplies, updateBudgetedDogSupplies] = useState(0);
-  const budgeted =
-    budgetedElectric +
-    budgetedWater +
-    budgetedCarFuel +
-    budgetedTolls +
-    budgetedGroceries +
-    budgetedHouseholdProducts +
-    budgetedCarMaintenance +
-    budgetedHaircut +
-    budgetedPersonalCareDoctor +
-    budgetedDogSupplies;
+      {/* Budgeted */}
+      <Generator
+        sectionTitle="Budgeted"
+        fields={[
+          {
+            label: 'Electric/Gas',
+            onChange: (value: number) =>
+              mergeExpenseUpdate('variable', 'electric', 'budgeted', value),
+            value: expenses.variable.electric.budgeted,
+          },
+          {
+            label: 'Water',
+            onChange: (value: number) => mergeExpenseUpdate('variable', 'water', 'budgeted', value),
+            value: expenses.variable.water.budgeted,
+          },
+          {
+            label: 'Car Fuel',
+            onChange: (value: number) =>
+              mergeExpenseUpdate('variable', 'carFuel', 'budgeted', value),
+            value: expenses.variable.carFuel.budgeted,
+          },
+          {
+            label: 'Tolls',
+            onChange: (value: number) => mergeExpenseUpdate('variable', 'tolls', 'budgeted', value),
+            value: expenses.variable.tolls.budgeted,
+          },
+          {
+            label: 'Groceries',
+            onChange: (value: number) =>
+              mergeExpenseUpdate('variable', 'groceries', 'budgeted', value),
+            value: expenses.variable.groceries.budgeted,
+          },
+          {
+            label: 'Household Products',
+            onChange: (value: number) =>
+              mergeExpenseUpdate('variable', 'householdProducts', 'budgeted', value),
+            value: expenses.variable.householdProducts.budgeted,
+          },
+          {
+            label: 'Car Maintenance',
+            onChange: (value: number) =>
+              mergeExpenseUpdate('variable', 'carMaintenance', 'budgeted', value),
+            value: expenses.variable.carMaintenance.budgeted,
+          },
+          {
+            label: 'Haircut',
+            onChange: (value: number) =>
+              mergeExpenseUpdate('variable', 'haircut', 'budgeted', value),
+            value: expenses.variable.haircut.budgeted,
+          },
+          {
+            label: 'Personal Care/Dr Appts',
+            onChange: (value: number) =>
+              mergeExpenseUpdate('variable', 'personalCareDoctor', 'budgeted', value),
+            value: expenses.variable.personalCareDoctor.budgeted,
+          },
+          {
+            label: 'Dog Supplies',
+            onChange: (value: number) =>
+              mergeExpenseUpdate('variable', 'dogSupplies', 'budgeted', value),
+            value: expenses.variable.dogSupplies.budgeted,
+          },
+        ]}
+        total={variable.totalBudgetedVariableExpenses}
+      />
 
-  const differenceElectric = budgetedElectric - electric;
-  const differenceWater = budgetedWater - water;
-  const differenceCarFuel = budgetedCarFuel - carFuel;
-  const differenceTolls = budgetedTolls - tolls;
-  const differenceGroceries = budgetedGroceries - groceries;
-  const differenceHouseholdProducts = budgetedHouseholdProducts - householdProducts;
-  const differenceCarMaintenance = budgetedCarMaintenance - carMaintenance;
-  const differenceHaircut = budgetedHaircut - haircut;
-  const differencePersonalCareDoctor = budgetedPersonalCareDoctor - personalCareDoctor;
-  const differenceDogSupplies = budgetedDogSupplies - dogSupplies;
-  const difference = budgeted - actual;
-
-  useEffect(() => {
-    updateExpenseTotal({
-      ...expenseTotal,
-      variable: actual,
-    });
-  }, [actual, expenseTotal, updateExpenseTotal]);
-
-  return (
-    <div>
-      <Title order={3}>Variable</Title>
-      <div className={styles.container}>
-        {/* Actual */}
-        <Generator
-          sectionTitle="Actual"
-          fields={[
-            {
-              label: 'Electric/Gas',
-              onChange: updateElectric,
-              value: electric,
-            },
-            { label: 'Water', onChange: updateWater, value: water },
-            {
-              label: 'Car Fuel',
-              onChange: updateCarFuel,
-              value: carFuel,
-            },
-            {
-              label: 'Tolls',
-              onChange: updateTolls,
-              value: tolls,
-            },
-            {
-              label: 'Groceries',
-              onChange: updateGroceries,
-              value: groceries,
-            },
-            {
-              label: 'Household Products',
-              onChange: updateHouseholdProducts,
-              value: householdProducts,
-            },
-            {
-              label: 'Car Maintenance',
-              onChange: updateCarMaintenance,
-              value: carMaintenance,
-            },
-            { label: 'Haircut', onChange: updateHaircut, value: haircut },
-            {
-              label: 'Personal Care/Dr Appts',
-              onChange: updatePersonalCareDoctor,
-              value: personalCareDoctor,
-            },
-            {
-              label: 'Dog Supplies',
-              onChange: updateDogSupplies,
-              value: dogSupplies,
-            },
-          ]}
-          total={actual}
-        />
-
-        {/* Budgeted */}
-        <Generator
-          sectionTitle="Budgeted"
-          fields={[
-            {
-              label: 'Electric/Gas',
-              onChange: updateBudgetedRent,
-              value: budgetedElectric,
-            },
-            {
-              label: 'Water',
-              onChange: updateBudgetedWater,
-              value: budgetedWater,
-            },
-            {
-              label: 'Car Fuel',
-              onChange: updateBudgetedCarFuel,
-              value: budgetedCarFuel,
-            },
-            {
-              label: 'Tolls',
-              onChange: updateBudgetedTolls,
-              value: budgetedTolls,
-            },
-            {
-              label: 'Groceries',
-              onChange: updateBudgetedGroceries,
-              value: budgetedGroceries,
-            },
-            {
-              label: 'Household Products',
-              onChange: updateBudgetedHouseholdProducts,
-              value: budgetedHouseholdProducts,
-            },
-            {
-              label: 'Car Maintenance',
-              onChange: updateBudgetedCarMaintenance,
-              value: budgetedCarMaintenance,
-            },
-            {
-              label: 'Haircut',
-              onChange: updateBudgetedHaircut,
-              value: budgetedHaircut,
-            },
-            {
-              label: 'Personal Care/Dr Appts',
-              onChange: updateBudgetedPersonalCareDoctor,
-              value: budgetedPersonalCareDoctor,
-            },
-            {
-              label: 'Dog Supplies',
-              onChange: updateBudgetedDogSupplies,
-              value: budgetedDogSupplies,
-            },
-          ]}
-          total={budgeted}
-        />
-
-        {/* Difference */}
-        <Generator
-          sectionTitle="Difference"
-          fields={[
-            { label: 'Electric/Gas', value: differenceElectric },
-            { label: 'Water', value: differenceWater },
-            {
-              label: 'Car Fuel',
-              value: differenceCarFuel,
-            },
-            { label: 'Tolls', value: differenceTolls },
-            { label: 'Groceries', value: differenceGroceries },
-            { label: 'Household Products', value: differenceHouseholdProducts },
-            { label: 'Car Maintenance', value: differenceCarMaintenance },
-            { label: 'Haircut', value: differenceHaircut },
-            {
-              label: 'Personal Care/Dr Appts',
-              value: differencePersonalCareDoctor,
-            },
-            { label: 'Dog Supplies', value: differenceDogSupplies },
-          ]}
-          total={difference}
-        />
-      </div>
+      {/* Difference */}
+      <Generator
+        sectionTitle="Difference"
+        fields={[
+          { label: 'Electric/Gas', value: variable.electricDifference },
+          { label: 'Water', value: variable.waterDifference },
+          {
+            label: 'Car Fuel',
+            value: variable.carFuelDifference,
+          },
+          { label: 'Tolls', value: variable.tollsDifference },
+          { label: 'Groceries', value: variable.groceriesDifference },
+          { label: 'Household Products', value: variable.householdProductsDifference },
+          { label: 'Car Maintenance', value: variable.carMaintenanceDifference },
+          { label: 'Haircut', value: variable.haircutDifference },
+          {
+            label: 'Personal Care/Dr Appts',
+            value: variable.personalCareDoctorDifference,
+          },
+          { label: 'Dog Supplies', value: variable.dogSuppliesDifference },
+        ]}
+        total={variable.totalDifferenceVariableExpenses}
+      />
     </div>
-  );
-};
+  </div>
+);

@@ -1,13 +1,16 @@
-import { useState } from 'react';
 import { Title } from '@mantine/core';
-import styles from '../Shared/Layout.module.css';
 import { Generator } from '../Shared/Generator';
+import styles from '../Shared/Layout.module.css';
 
-export const Savings = ({ savings }: { savings: number }) => {
-  const [savingsTotal, updateSavings] = useState(savings);
-  const [budgeted, updateBudgeted] = useState(0);
-  const difference = budgeted - savingsTotal;
-
+export const Savings = ({
+  mergeSavingsUpdate,
+  savings,
+  savingsDifference,
+}: {
+  mergeSavingsUpdate: any;
+  savings: any;
+  savingsDifference: number;
+}) => {
   return (
     <div>
       <Title order={3}>Savings</Title>
@@ -18,11 +21,11 @@ export const Savings = ({ savings }: { savings: number }) => {
           fields={[
             {
               label: 'Savings',
-              onChange: updateSavings,
-              value: savingsTotal,
+              onChange: (value: number) => mergeSavingsUpdate('actual', value),
+              value: savings.actual,
             },
           ]}
-          total={savingsTotal}
+          total={savings.actual}
         />
 
         {/* Budgeted */}
@@ -31,18 +34,19 @@ export const Savings = ({ savings }: { savings: number }) => {
           fields={[
             {
               label: 'Savings',
-              onChange: updateBudgeted,
-              value: budgeted,
+              onChange: (value: number) => mergeSavingsUpdate('budgeted', value),
+
+              value: savings.budgeted,
             },
           ]}
-          total={budgeted}
+          total={savings.budgeted}
         />
 
         {/* Difference */}
         <Generator
           sectionTitle="Difference"
-          fields={[{ label: 'Savings', value: difference }]}
-          total={difference}
+          fields={[{ label: 'Savings', value: savingsDifference }]}
+          total={savingsDifference}
         />
       </div>
     </div>
