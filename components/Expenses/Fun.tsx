@@ -46,7 +46,7 @@ export const Fun = ({
           },
           {
             label: 'Gifts',
-            onChange: (value: number) => mergeExpenseUpdate('fun', 'clothing', 'actual', value),
+            onChange: (value: number) => mergeExpenseUpdate('fun', 'gifts', 'actual', value),
             value: expenses.fun.gifts.actual,
           },
         ]}
@@ -86,7 +86,7 @@ export const Fun = ({
           },
           {
             label: 'Gifts',
-            onChange: (value: number) => mergeExpenseUpdate('fun', 'clothing', 'budgeted', value),
+            onChange: (value: number) => mergeExpenseUpdate('fun', 'gifts', 'budgeted', value),
             value: expenses.fun.gifts.budgeted,
           },
         ]}

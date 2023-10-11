@@ -4,11 +4,13 @@ import styles from '../Shared/Layout.module.css';
 
 export const Totals = ({
   income,
+  expenses,
   investments,
   amtAvailableToInvest,
   savings,
 }: {
   income: number;
+  expenses: number;
   investments: number;
   amtAvailableToInvest: number;
   savings: number;
@@ -18,7 +20,7 @@ export const Totals = ({
     <div className={styles.container}>
       <Group>
         <NumberInput className={styles.input} label="Total Income" value={income} />
-        <NumberInput className={styles.input} label="Total Expenses" value={income} />
+        <NumberInput className={styles.input} label="Total Expenses" value={expenses} />
         <NumberInput
           className={styles.input}
           label="Amount Available to Invest (Inc-Exp)"

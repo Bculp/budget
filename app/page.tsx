@@ -396,7 +396,7 @@ export default function HomePage() {
       ...investments,
       [category]: {
         // @ts-ignore
-        ...{ ...income[category] },
+        ...{ ...investments[category] },
         [type]: value,
       },
     };
@@ -418,6 +418,7 @@ export default function HomePage() {
   const rothIRADifference = getInvestmentDifference('rothIRA');
   const individualInvestmentsDifference = getInvestmentDifference('individualInvestments');
   const mutualFundsDifference = getInvestmentDifference('mutualFunds');
+
   const totalActualInvestments =
     investments.roth401k.actual +
     investments.rothIRA.actual +
@@ -703,6 +704,7 @@ export default function HomePage() {
       />
       <Totals
         income={totalActualIncome}
+        expenses={totalActualExpenses}
         investments={totalActualInvestments}
         amtAvailableToInvest={amtAvailableToInvest}
         savings={amtRemaining}
