@@ -3,12 +3,13 @@ import { Month } from './Types/Month';
 
 const url = 'http://localhost:4000';
 
-export const getAllMonths = async () => {
+export const getAllMonths = async (): Promise<Month[]> => {
   try {
     const response = await axios.get(`${url}/month`);
-    console.log(response);
+    return response.data;
   } catch (error) {
     console.error(error);
+    throw error;
   }
 };
 
