@@ -57,6 +57,7 @@ app.put('/month/:id', async (req, res) => {
         Totals: { ...month.Totals, ...req.body.Totals },
         Savings: { ...month.Savings, ...req.body.Savings },
         InvestmentChecking: { ...month.InvestmentChecking, ...req.body.InvestmentChecking },
+        CarPayment: { ...month.CarPayment, ...req.body.CarPayment },
       },
     },
     { new: true }

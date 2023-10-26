@@ -11,6 +11,7 @@ import { InvestmentChecking } from '@/components/InvestmentChecking';
 import { createMonth, getAllMonths, updateMonth } from '@/components/Shared/api';
 import { NumberInput } from '@/components/Shared/NumberInput';
 import styles from '../../components/Shared/Layout.module.css';
+import { CarPayment } from '@/components/CarPayment';
 
 export default function MonthPage() {
   const [month, updateMonthString] = useState('');
@@ -198,6 +199,22 @@ export default function MonthPage() {
     actual: 0,
     budgeted: 0,
   });
+
+  const [carPayment, updateCarPayment] = useState({
+    moneyAvailable: 0,
+    idealPayment: 1769.02,
+    totalOwed: 21228.19,
+    amtPaidThisMonth: 0,
+  });
+  const carAmtRemaining = carPayment.totalOwed - carPayment.amtPaidThisMonth;
+  const mergeCarPaymentUpdate = (category: string, value: number) => {
+    const newState = {
+      ...carPayment,
+      [category]: value,
+    };
+
+    updateCarPayment(newState);
+  };
 
   const jobDifference = income.job.budgeted - income.job.actual;
   const otherDifference = income.other.budgeted - income.other.actual;
@@ -719,6 +736,10 @@ export default function MonthPage() {
         individualInvestments: investments.individualInvestments.actual,
         mutualFunds: investments.mutualFunds.actual,
       },
+      CarPayment: {
+        ...carPayment,
+        carAmtRemaining,
+      },
     });
   };
 
@@ -934,6 +955,10 @@ export default function MonthPage() {
         individualInvestments: investments.individualInvestments.actual,
         mutualFunds: investments.mutualFunds.actual,
       },
+      CarPayment: {
+        ...carPayment,
+        carAmtRemaining,
+      },
     });
   };
 
@@ -993,6 +1018,11 @@ export default function MonthPage() {
         mergePercentageUpdate={mergePercentageUpdate}
       />
       <InvestmentChecking {...InvestmentCheckingProps} />
+      <CarPayment
+        carPayment={carPayment}
+        carAmtRemaining={carAmtRemaining}
+        mergeCarPaymentUpdate={mergeCarPaymentUpdate}
+      />
       <Button onClick={createNewMonth}>Create</Button>
       {/* <Button onClick={saveMonth}>Save</Button> */}
     </div>

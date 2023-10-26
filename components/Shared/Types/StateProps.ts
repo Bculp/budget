@@ -5,3 +5,10 @@ export interface Percentages {
   investments: number;
   savings: number;
 }
+
+export interface ICarPayment {
+  moneyAvailable: number;
+  idealPayment: number;
+  totalOwed: number;
+  amtPaidThisMonth: number;
+}

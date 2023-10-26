@@ -245,4 +245,11 @@ export interface Month {
     individualInvestments: number;
     mutualFunds: number;
   };
+  CarPayment: {
+    moneyAvailable: number;
+    idealPayment: number;
+    totalOwed: number;
+    amtPaidThisMonth: number;
+    carAmtRemaining: number;
+  };
 }

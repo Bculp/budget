@@ -12,10 +12,12 @@ export const Generator = ({
   fields,
   sectionTitle,
   total,
+  totalTitle = 'Total',
 }: {
   fields: Field[];
   sectionTitle: string;
   total: number;
+  totalTitle?: string;
 }) => (
   <div className={styles.section}>
     <Title order={4}>{sectionTitle}</Title>
@@ -28,7 +30,7 @@ export const Generator = ({
         value={Number(field.value.toFixed(2))}
       />
     ))}
-    <Title order={4}>Total</Title>
+    <Title order={4}>{totalTitle}</Title>
     <Text>{Number(total.toFixed(2))}</Text>
   </div>
 );
