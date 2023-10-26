@@ -32,12 +32,13 @@ export const createMonth = async (body: Month) => {
   }
 };
 
-export const updateMonth = async (id: string) => {
+export const updateMonth = async (id: string, body: Month) => {
   try {
-    const response = await axios.put(`${url}/month/${id}`);
-    console.log(response);
+    const response = await axios.put(`${url}/month/${id}`, body);
+    return response.data;
   } catch (error) {
     console.error(error);
+    throw error;
   }
 };
 

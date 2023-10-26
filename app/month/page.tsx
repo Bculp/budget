@@ -13,7 +13,7 @@ import { NumberInput } from '@/components/Shared/NumberInput';
 import styles from '../../components/Shared/Layout.module.css';
 
 export default function MonthPage() {
-  const [month, updateMonth] = useState('');
+  const [month, updateMonthString] = useState('');
   const [year, updateYear] = useState(2023);
 
   const [percentages, updatePercentages] = useState({
@@ -477,6 +477,24 @@ export default function MonthPage() {
 
   const savingsDifference = savings.budgeted - savings.actual;
 
+  const [actualAmtInChecking, updateActualAmtInChecking] = useState(0);
+  const budgetAmtInChecking =
+    investments.rothIRA.actual +
+    investments.individualInvestments.actual +
+    investments.mutualFunds.actual;
+  const budgetBalance = actualAmtInChecking - budgetAmtInChecking;
+
+  const InvestmentCheckingProps = {
+    savings: savings.actual > 0 ? savings.actual : 0, // will also add previous months amt to this
+    rothIRA: investments.rothIRA.actual, // will also add previous months amt to this
+    individualInvestments: investments.individualInvestments.actual, // will also add previous months amt to this
+    mutualFunds: investments.mutualFunds.actual, // will also add previous months amt to this
+    actualAmtInChecking,
+    updateActualAmtInChecking,
+    budgetAmtInChecking,
+    budgetBalance,
+  };
+
   // when fetching data can just do this to wholesale replace state
   /*
     const data = axios.method()
@@ -704,9 +722,220 @@ export default function MonthPage() {
     });
   };
 
-  // const saveMonth = () => {
-  //   updateMonth();
-  // };
+  const saveMonth = async () => {
+    await updateMonth(`${year}-${month.toLowerCase()}`, {
+      month,
+      year,
+      Income: {
+        job: {
+          ...income.job,
+          difference: jobDifference,
+        },
+        other: {
+          ...income.other,
+          difference: otherDifference,
+        },
+        total: {
+          actual: totalActualIncome,
+          budgeted: totalBudgetedIncome,
+          difference: totalDifferenceIncome,
+        },
+      },
+      Expenses: {
+        total: {
+          actual: totalActualExpenses,
+          budgeted: totalBudgetedExpenses,
+          difference: totalDifferenceExpenses,
+        },
+        fixed: {
+          rent: {
+            ...expenses.fixed.rent,
+            difference: rentDifference,
+          },
+          rentersInsurance: {
+            ...expenses.fixed.rentersInsurance,
+            difference: rentersInsuranceDifference,
+          },
+          internet: {
+            ...expenses.fixed.internet,
+            difference: internetDifference,
+          },
+          healthInsurance: {
+            ...expenses.fixed.healthInsurance,
+            difference: healthInsuranceDifference,
+          },
+          carInsurance: {
+            ...expenses.fixed.carInsurance,
+            difference: carInsuranceDifference,
+          },
+          cellPhone: {
+            ...expenses.fixed.cellPhone,
+            difference: cellPhoneDifference,
+          },
+          gymMembership: {
+            ...expenses.fixed.gymMembership,
+            difference: gymMembershipDifference,
+          },
+          amazonMembership: {
+            ...expenses.fixed.amazonMembership,
+            difference: amazonMembershipDifference,
+          },
+          spotify: {
+            ...expenses.fixed.spotify,
+            difference: spotifyDifference,
+          },
+          costco: {
+            ...expenses.fixed.costco,
+            difference: costcoDifference,
+          },
+          domain: {
+            ...expenses.fixed.domain,
+            difference: domainDifference,
+          },
+          petco: {
+            ...expenses.fixed.petco,
+            difference: petcoDifference,
+          },
+          tv: {
+            ...expenses.fixed.tv,
+            difference: tvDifference,
+          },
+          allTrails: {
+            ...expenses.fixed.allTrails,
+            difference: allTrailsDifference,
+          },
+          total: {
+            actual: totalActualFixedExpenses,
+            budgeted: totalBudgetedFixedExpenses,
+            difference: totalDifferenceFixedExpenses,
+            percentage: percentages.fixedExpenses,
+          },
+        },
+        variable: {
+          electric: {
+            ...expenses.variable.electric,
+            difference: electricDifference,
+          },
+          water: {
+            ...expenses.variable.water,
+            difference: waterDifference,
+          },
+          carFuel: {
+            ...expenses.variable.carFuel,
+            difference: carFuelDifference,
+          },
+          tolls: {
+            ...expenses.variable.tolls,
+            difference: tollsDifference,
+          },
+          groceries: {
+            ...expenses.variable.groceries,
+            difference: groceriesDifference,
+          },
+          householdProducts: {
+            ...expenses.variable.householdProducts,
+            difference: householdProductsDifference,
+          },
+          carMaintenance: {
+            ...expenses.variable.carMaintenance,
+            difference: carMaintenanceDifference,
+          },
+          haircut: {
+            ...expenses.variable.haircut,
+            difference: haircutDifference,
+          },
+          personalCareDoctor: {
+            ...expenses.variable.personalCareDoctor,
+            difference: personalCareDoctorDifference,
+          },
+          dogSupplies: {
+            ...expenses.variable.dogSupplies,
+            difference: dogSuppliesDifference,
+          },
+          total: {
+            actual: totalActualVariableExpenses,
+            budgeted: totalBudgetedVariableExpenses,
+            difference: totalDifferenceVariableExpenses,
+            percentage: percentages.variableExpenses,
+          },
+        },
+        fun: {
+          clothing: {
+            ...expenses.fun.clothing,
+            difference: clothingDifference,
+          },
+          eatingOut: {
+            ...expenses.fun.eatingOut,
+            difference: eatingOutDifference,
+          },
+          funPurchases: {
+            ...expenses.fun.funPurchases,
+            difference: funPurchasesDifference,
+          },
+          entertainmentActivities: {
+            ...expenses.fun.entertainmentActivities,
+            difference: entertainmentActivitiesDifference,
+          },
+          vacation: {
+            ...expenses.fun.vacation,
+            difference: vacationDifference,
+          },
+          gifts: {
+            ...expenses.fun.gifts,
+            difference: giftsDifference,
+          },
+          total: {
+            actual: totalActualFunExpenses,
+            budgeted: totalBudgetedFunExpenses,
+            difference: totalDifferenceFunExpenses,
+            percentage: percentages.funExpenses,
+          },
+        },
+      },
+      Investments: {
+        roth401k: {
+          ...investments.roth401k,
+          difference: roth401kDifference,
+        },
+        rothIRA: {
+          ...investments.rothIRA,
+          difference: rothIRADifference,
+        },
+        individualInvestments: {
+          ...investments.individualInvestments,
+          difference: individualInvestmentsDifference,
+        },
+        mutualFunds: {
+          ...investments.mutualFunds,
+          difference: mutualFundsDifference,
+        },
+        total: {
+          actual: totalActualInvestments,
+          budgeted: totalBudgetedInvestments,
+          difference: totalDifferenceInvestments,
+          percentage: percentages.investments,
+        },
+      },
+      Totals: {
+        income: totalActualIncome,
+        expenses: totalActualExpenses,
+        investments: totalActualInvestments,
+        amtAvailableToInvest,
+        savings: amtRemaining,
+      },
+      Savings: {
+        actual: savings.actual,
+        budgeted: savings.budgeted,
+        difference: savingsDifference,
+        percentage: percentages.savings,
+      },
+      InvestmentChecking: {
+        rothIRA: investments.rothIRA.actual,
+        individualInvestments: investments.individualInvestments.actual,
+        mutualFunds: investments.mutualFunds.actual,
+      },
+    });
+  };
 
   return (
     <div>
@@ -715,7 +944,7 @@ export default function MonthPage() {
         className={styles.input}
         label="Month"
         placeholder="Current Month"
-        onChange={(event) => updateMonth(event.currentTarget.value)}
+        onChange={(event) => updateMonthString(event.currentTarget.value)}
         value={month}
       />
       <NumberInput
@@ -763,11 +992,7 @@ export default function MonthPage() {
         percentages={percentages}
         mergePercentageUpdate={mergePercentageUpdate}
       />
-      <InvestmentChecking
-        rothIRA={investments.rothIRA.actual}
-        individualInvestments={investments.individualInvestments.actual}
-        mutualFunds={investments.mutualFunds.actual}
-      />
+      <InvestmentChecking {...InvestmentCheckingProps} />
       <Button onClick={createNewMonth}>Create</Button>
       {/* <Button onClick={saveMonth}>Save</Button> */}
     </div>
