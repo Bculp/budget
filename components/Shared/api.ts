@@ -16,9 +16,10 @@ export const getAllMonths = async (): Promise<Month[]> => {
 export const getMonth = async (id: string) => {
   try {
     const response = await axios.get(`${url}/month/${id}`);
-    console.log(response);
+    return response.data;
   } catch (error) {
     console.error(error);
+    throw error;
   }
 };
 
