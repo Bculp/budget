@@ -3,6 +3,8 @@ import { useDisclosure } from '@mantine/hooks';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 import { Generator } from '../Shared/Generator';
 import styles from '../Shared/Layout.module.css';
+import { Percentages } from '../Shared/Types/StateProps';
+import { NumberInput } from '../Shared/NumberInput';
 
 export const Investments = ({
   investments,
@@ -14,6 +16,8 @@ export const Investments = ({
   totalActualInvestments,
   totalBudgetedInvestments,
   totalDifferenceInvestments,
+  percentages,
+  mergePercentageUpdate,
 }: {
   investments: any;
   mergeInvestmentUpdate: any;
@@ -24,6 +28,8 @@ export const Investments = ({
   totalActualInvestments: number;
   totalBudgetedInvestments: number;
   totalDifferenceInvestments: number;
+  percentages: Percentages;
+  mergePercentageUpdate: any;
 }) => {
   const [opened, { toggle }] = useDisclosure(false);
 
@@ -34,6 +40,14 @@ export const Investments = ({
         <ActionIcon onClick={toggle}>{opened ? <IconChevronUp /> : <IconChevronDown />}</ActionIcon>
       </Group>
       <Collapse in={opened}>
+        <NumberInput
+          className={styles.input}
+          label="Percentage"
+          onChange={(value: number) => mergePercentageUpdate('investments', value)}
+          prefix=""
+          suffix="%"
+          value={percentages.investments}
+        />
         <div className={styles.container}>
           {/* Actual */}
           <Generator

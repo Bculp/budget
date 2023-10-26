@@ -79,6 +79,7 @@ const ExpenseSchema = {
       actual: Number,
       budgeted: Number,
       difference: Number,
+      percentage: Number,
     },
   },
   variable: {
@@ -136,6 +137,7 @@ const ExpenseSchema = {
       actual: Number,
       budgeted: Number,
       difference: Number,
+      percentage: Number,
     },
   },
   fun: {
@@ -173,6 +175,7 @@ const ExpenseSchema = {
       actual: Number,
       budgeted: Number,
       difference: Number,
+      percentage: Number,
     },
   },
 };

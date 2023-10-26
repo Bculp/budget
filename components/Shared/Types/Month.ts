@@ -1,243 +1,248 @@
 export interface Month {
-  month: String;
-  year: Number;
+  month: string;
+  year: number;
   Income: {
     job: {
-      actual: Number;
-      budgeted: Number;
-      difference: Number;
+      actual: number;
+      budgeted: number;
+      difference: number;
     };
     other: {
-      actual: Number;
-      budgeted: Number;
-      difference: Number;
+      actual: number;
+      budgeted: number;
+      difference: number;
     };
     total: {
-      actual: Number;
-      budgeted: Number;
-      difference: Number;
+      actual: number;
+      budgeted: number;
+      difference: number;
     };
   };
   Expenses: {
     total: {
-      actual: Number;
-      budgeted: Number;
-      difference: Number;
+      actual: number;
+      budgeted: number;
+      difference: number;
     };
     fixed: {
       rent: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       rentersInsurance: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       internet: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       healthInsurance: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       carInsurance: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       cellPhone: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       gymMembership: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       amazonMembership: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       spotify: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       costco: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       domain: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       petco: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       tv: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       allTrails: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       total: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
+        percentage: number;
       };
     };
     variable: {
       electric: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       water: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       carFuel: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       tolls: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       groceries: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       householdProducts: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       carMaintenance: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       haircut: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       personalCareDoctor: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       dogSupplies: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       total: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
+        percentage: number;
       };
     };
     fun: {
       clothing: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       eatingOut: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       funPurchases: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       entertainmentActivities: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       vacation: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       gifts: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
       };
       total: {
-        actual: Number;
-        budgeted: Number;
-        difference: Number;
+        actual: number;
+        budgeted: number;
+        difference: number;
+        percentage: number;
       };
     };
   };
   Investments: {
     roth401k: {
-      actual: Number;
-      budgeted: Number;
-      difference: Number;
+      actual: number;
+      budgeted: number;
+      difference: number;
     };
     rothIRA: {
-      actual: Number;
-      budgeted: Number;
-      difference: Number;
+      actual: number;
+      budgeted: number;
+      difference: number;
     };
     individualInvestments: {
-      actual: Number;
-      budgeted: Number;
-      difference: Number;
+      actual: number;
+      budgeted: number;
+      difference: number;
     };
     mutualFunds: {
-      actual: Number;
-      budgeted: Number;
-      difference: Number;
+      actual: number;
+      budgeted: number;
+      difference: number;
     };
     total: {
-      actual: Number;
-      budgeted: Number;
-      difference: Number;
+      actual: number;
+      budgeted: number;
+      difference: number;
+      percentage: number;
     };
   };
   Totals: {
-    income: Number;
-    expenses: Number;
-    investments: Number;
-    amtAvailableToInvest: Number;
-    savings: Number;
+    income: number;
+    expenses: number;
+    investments: number;
+    amtAvailableToInvest: number;
+    savings: number;
   };
   Savings: {
-    actual: Number;
-    budgeted: Number;
-    difference: Number;
+    actual: number;
+    budgeted: number;
+    difference: number;
+    percentage: number;
   };
   InvestmentChecking: {
-    rothIRA: Number;
-    individualInvestments: Number;
-    mutualFunds: Number;
+    rothIRA: number;
+    individualInvestments: number;
+    mutualFunds: number;
   };
 }

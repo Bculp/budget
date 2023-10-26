@@ -1,18 +1,32 @@
 import { Title } from '@mantine/core';
 import { Generator } from '../Shared/Generator';
 import styles from '../Shared/Layout.module.css';
+import { NumberInput } from '../Shared/NumberInput';
+import { Percentages } from '../Shared/Types/StateProps';
 
 export const Fun = ({
   mergeExpenseUpdate,
   expenses,
   fun,
+  percentages,
+  mergePercentageUpdate,
 }: {
   mergeExpenseUpdate: any;
   expenses: any;
   fun: any;
+  percentages: Percentages;
+  mergePercentageUpdate: any;
 }) => (
   <div>
     <Title order={3}>Fun</Title>
+    <NumberInput
+      className={styles.input}
+      label="Percentage"
+      onChange={(value: number) => mergePercentageUpdate('funExpenses', value)}
+      prefix=""
+      suffix="%"
+      value={percentages.funExpenses}
+    />
     <div className={styles.container}>
       {/* Actual */}
       <Generator

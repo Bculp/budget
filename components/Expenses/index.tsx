@@ -5,6 +5,7 @@ import { Fixed } from './Fixed';
 import { Variable } from './Variable';
 import { Fun } from './Fun';
 import type { ExpenseTotal } from '@/app/page';
+import { Percentages } from '../Shared/Types/StateProps';
 
 export const Expenses = ({
   mergeExpenseUpdate,
@@ -12,27 +13,37 @@ export const Expenses = ({
   fixed,
   variable,
   fun,
+  percentages,
+  mergePercentageUpdate,
 }: {
   mergeExpenseUpdate: any;
   expenses: any;
   fixed: object;
   variable: object;
   fun: object;
+  percentages: Percentages;
+  mergePercentageUpdate: any;
 }) => {
   const fixedProps = {
     mergeExpenseUpdate,
     expenses,
     fixed,
+    percentages,
+    mergePercentageUpdate,
   };
   const variableProps = {
     mergeExpenseUpdate,
     expenses,
     variable,
+    percentages,
+    mergePercentageUpdate,
   };
   const funProps = {
     mergeExpenseUpdate,
     expenses,
     fun,
+    percentages,
+    mergePercentageUpdate,
   };
   const [opened, { toggle }] = useDisclosure(false);
   return (

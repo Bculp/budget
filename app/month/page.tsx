@@ -1,16 +1,38 @@
 'use client';
 
 import { useState } from 'react';
-import { Button } from '@mantine/core';
-import { Expenses } from '../../components/Expenses';
-import { Income } from '../../components/Income';
-import { Investments } from '../../components/Investments';
-import { Totals } from '../../components/Totals';
-import { Savings } from '../../components/Savings';
-import { InvestmentChecking } from '../../components/InvestmentChecking';
+import { Button, TextInput } from '@mantine/core';
+import { Expenses } from '@/components/Expenses';
+import { Income } from '@/components/Income';
+import { Investments } from '@/components/Investments';
+import { Totals } from '@/components/Totals';
+import { Savings } from '@/components/Savings';
+import { InvestmentChecking } from '@/components/InvestmentChecking';
 import { createMonth, getAllMonths, updateMonth } from '@/components/Shared/api';
+import { NumberInput } from '@/components/Shared/NumberInput';
+import styles from '../../components/Shared/Layout.module.css';
 
 export default function MonthPage() {
+  const [month, updateMonth] = useState('');
+  const [year, updateYear] = useState(2023);
+
+  const [percentages, updatePercentages] = useState({
+    fixedExpenses: 0,
+    variableExpenses: 0,
+    funExpenses: 0,
+    investments: 0,
+    savings: 0,
+  });
+
+  const mergePercentageUpdate = (category: string, value: number) => {
+    const newState = {
+      ...percentages,
+      [category]: value,
+    };
+
+    updatePercentages(newState);
+  };
+
   const [income, updateIncome] = useState({
     job: {
       actual: 0,
@@ -82,6 +104,7 @@ export default function MonthPage() {
       },
     },
     variable: {
+      percentage: 0,
       electric: {
         actual: 0,
         budgeted: 0,
@@ -124,6 +147,7 @@ export default function MonthPage() {
       },
     },
     fun: {
+      percentage: 0,
       clothing: {
         actual: 0,
         budgeted: 0,
@@ -348,6 +372,8 @@ export default function MonthPage() {
   const expenseProps = {
     mergeExpenseUpdate,
     expenses,
+    percentages,
+    mergePercentageUpdate,
     fixed: {
       rentDifference,
       rentersInsuranceDifference,
@@ -465,8 +491,8 @@ export default function MonthPage() {
 
   const createNewMonth = async () => {
     await createMonth({
-      month: 'January',
-      year: 2030,
+      month,
+      year,
       Income: {
         job: {
           ...income.job,
@@ -549,6 +575,7 @@ export default function MonthPage() {
             actual: totalActualFixedExpenses,
             budgeted: totalBudgetedFixedExpenses,
             difference: totalDifferenceFixedExpenses,
+            percentage: percentages.fixedExpenses,
           },
         },
         variable: {
@@ -596,6 +623,7 @@ export default function MonthPage() {
             actual: totalActualVariableExpenses,
             budgeted: totalBudgetedVariableExpenses,
             difference: totalDifferenceVariableExpenses,
+            percentage: percentages.variableExpenses,
           },
         },
         fun: {
@@ -627,6 +655,7 @@ export default function MonthPage() {
             actual: totalActualFunExpenses,
             budgeted: totalBudgetedFunExpenses,
             difference: totalDifferenceFunExpenses,
+            percentage: percentages.funExpenses,
           },
         },
       },
@@ -651,6 +680,7 @@ export default function MonthPage() {
           actual: totalActualInvestments,
           budgeted: totalBudgetedInvestments,
           difference: totalDifferenceInvestments,
+          percentage: percentages.investments,
         },
       },
       Totals: {
@@ -664,6 +694,7 @@ export default function MonthPage() {
         actual: savings.actual,
         budgeted: savings.budgeted,
         difference: savingsDifference,
+        percentage: percentages.savings,
       },
       InvestmentChecking: {
         rothIRA: investments.rothIRA.actual,
@@ -680,6 +711,21 @@ export default function MonthPage() {
   return (
     <div>
       <Button onClick={makeApiCall}>GET ALL MONTHS</Button>
+      <TextInput
+        className={styles.input}
+        label="Month"
+        placeholder="Current Month"
+        onChange={(event) => updateMonth(event.currentTarget.value)}
+        value={month}
+      />
+      <NumberInput
+        className={styles.input}
+        label="Year"
+        onChange={(value: number) => updateYear(value)}
+        prefix=""
+        thousandSeparator=""
+        value={year}
+      />
       <Income
         income={income}
         mergeIncomeUpdate={mergeIncomeUpdate}
@@ -700,6 +746,8 @@ export default function MonthPage() {
         totalActualInvestments={totalActualInvestments}
         totalBudgetedInvestments={totalBudgetedInvestments}
         totalDifferenceInvestments={totalDifferenceInvestments}
+        percentages={percentages}
+        mergePercentageUpdate={mergePercentageUpdate}
       />
       <Totals
         income={totalActualIncome}
@@ -712,6 +760,8 @@ export default function MonthPage() {
         savings={savings}
         mergeSavingsUpdate={mergeSavingsUpdate}
         savingsDifference={savingsDifference}
+        percentages={percentages}
+        mergePercentageUpdate={mergePercentageUpdate}
       />
       <InvestmentChecking
         rothIRA={investments.rothIRA.actual}

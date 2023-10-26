@@ -23,6 +23,7 @@ const InvestmentSchema = {
     actual: Number,
     budgeted: Number,
     difference: Number,
+    percentage: Number,
   },
 };
 
