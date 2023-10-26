@@ -25,10 +25,10 @@ export const Generator = ({
         className={styles.input}
         label={field.label}
         onChange={field.onChange}
-        value={field.value}
+        value={Number(field.value.toFixed(2))}
       />
     ))}
     <Title order={4}>Total</Title>
-    <Text>{total}</Text>
+    <Text>{Number(total.toFixed(2))}</Text>
   </div>
 );
