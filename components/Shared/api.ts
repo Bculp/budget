@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { Month } from './Types/Month';
+import { Month, MonthDBO } from './Types/Month';
 
 const url = 'http://localhost:4000';
 
-export const getAllMonths = async (): Promise<Month[]> => {
+export const getAllMonths = async (): Promise<MonthDBO[]> => {
   try {
     const response = await axios.get(`${url}/month`);
     return response.data;

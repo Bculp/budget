@@ -253,3 +253,7 @@ export interface Month {
     carAmtRemaining: number;
   };
 }
+
+export interface MonthDBO extends Month {
+  id: string;
+}
