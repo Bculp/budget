@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Month, MonthDBO } from './Types/Month';
 
-const url = 'http://localhost:4000';
+export const url = 'http://localhost:4000';
 
 export const getAllMonths = async (): Promise<MonthDBO[]> => {
   try {
