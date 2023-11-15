@@ -29,6 +29,6 @@ export const NumberInput = ({
     hideControls
     placeholder={placeholder}
     onChange={onChange}
-    value={value}
+    value={Number(value.toFixed(2))}
   />
 );
