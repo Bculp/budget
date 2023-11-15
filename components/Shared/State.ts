@@ -172,9 +172,7 @@ export const initialInvestmentState = {
 export const initialSavingsState = {
   actual: 0,
   budgeted: 0,
-  total: {
-    percentage: 0,
-  },
+  percentage: 0,
 };
 
 export const initialCarPaymentState = {
@@ -212,4 +210,12 @@ export const initialMonthState = {
   id: '',
   month: '',
   year: 2023,
+};
+
+export const initialPercentagesState = {
+  fixedExpenses: 0,
+  variableExpenses: 0,
+  funExpenses: 0,
+  investments: 0,
+  savings: 0,
 };
