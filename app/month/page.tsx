@@ -13,13 +13,14 @@ import { InvestmentChecking } from '@/components/InvestmentChecking';
 import { createMonth, getAllMonths, updateMonth, url } from '@/components/Shared/api';
 import { NumberInput } from '@/components/Shared/NumberInput';
 import styles from '../../components/Shared/Layout.module.css';
+import { months } from '../../components/Shared/Months';
 import { CarPayment } from '@/components/CarPayment';
 import { initialCarPaymentState, initialExpenseState, initialIncomeState, initialInvestmentState, initialMonthState, initialPercentagesState, initialSavingsState } from '@/components/Shared/State';
 
 export default function NewMonthPage() {
   // ---- USE STATE ---- //
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [month, updateMonthString] = useState('');
   const [year, updateYear] = useState(2023);
@@ -142,8 +143,7 @@ export default function NewMonthPage() {
   useEffect(() => {
     const getData = async () => {
       try {
-        setLoading(true);
-
+        // setLoading(true);
         const response = await axios.get(`${url}/month/${prevMonth}`);
         currentMonth = response.data[0] || initialMonthState;
 
@@ -156,6 +156,7 @@ export default function NewMonthPage() {
         dbYear = currentMonth.year;
         dbMonth = currentMonth.month;
 
+        updateMonthString(months[months.indexOf(dbMonth) + 1]);
         updateYear(dbYear);
         updatePercentages({
           fixedExpenses: dbExpenses.fixed.total.percentage,
