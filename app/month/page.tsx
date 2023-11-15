@@ -10,7 +10,7 @@ import { Investments } from '@/components/Investments';
 import { Totals } from '@/components/Totals';
 import { Savings } from '@/components/Savings';
 import { InvestmentChecking } from '@/components/InvestmentChecking';
-import { createMonth, getAllMonths, updateMonth, url } from '@/components/Shared/api';
+import { createMonth, updateMonth, url } from '@/components/Shared/api';
 import { NumberInput } from '@/components/Shared/NumberInput';
 import styles from '../../components/Shared/Layout.module.css';
 import { months } from '../../components/Shared/Months';
@@ -726,10 +726,6 @@ export default function NewMonthPage() {
       ...carPayment,
       carAmtRemaining,
     },
-  };
-
-  const makeApiCall = async () => {
-    getAllMonths();
   };
 
   const createNewMonth = async () => {
