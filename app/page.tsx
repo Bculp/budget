@@ -1,13 +1,18 @@
+import Link from 'next/link';
 import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeToggle';
 import { MonthsContext, MonthsDispatchContext, addMonthData } from '@/components/Shared/State';
 import { getAllMonths } from '@/components/Shared/api';
-import { Button } from '@mantine/core';
-import Link from 'next/link';
+import { NewMonth } from '@/components/NewMonth';
 
 export default async function HomePage() {
   const months = await getAllMonths();
-
-  // addMonthData(months);
+  const monthNames = months.map(month =>
+    ({
+      label: `${month.month} ${month.year}`,
+      value: month.id,
+    })
+  ).sort();
+  monthNames.unshift({ label: 'Select a month', value: '', disabled: true });
 
   return (
     <div>
@@ -15,16 +20,15 @@ export default async function HomePage() {
       <h1>Months</h1>
       <ul>
         {months.map((month) => (
-          <li>
+          <li key={month.id}>
             <Link
               href={`/month/${month.year}-${month.month}`}
-            >{`${month.month} - ${month.year}`}</Link>
+            >{`${month.month} - ${month.year}`}
+            </Link>
           </li>
         ))}
       </ul>
-      <Button component="a" href="/month">
-        Add Month
-      </Button>
+      <NewMonth data={monthNames} />
     </div>
   );
 }
