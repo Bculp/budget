@@ -11,7 +11,7 @@ import { Totals } from '@/components/Totals';
 import { Savings } from '@/components/Savings';
 import { InvestmentChecking } from '@/components/InvestmentChecking';
 import { createMonth, updateMonth, url } from '@/components/Shared/api';
-import { initialCarPaymentState, initialExpenseState, initialIncomeState, initialInvestmentState, initialMonthState, initialSavingsState } from '@/components/Shared/State';
+import { initialCarPaymentState, initialExpenseState, initialIncomeState, initialInvestmentState, initialMonthState, initialPercentagesState, initialSavingsState } from '@/components/Shared/State';
 import { NumberInput } from '@/components/Shared/NumberInput';
 import styles from '../../../components/Shared/Layout.module.css';
 import { CarPayment } from '@/components/CarPayment';
@@ -21,13 +21,7 @@ export default function MonthPage() {
 
   const [month, updateMonthString] = useState('');
   const [year, updateYear] = useState(2023);
-  const [percentages, updatePercentages] = useState({
-    fixedExpenses: 0,
-    variableExpenses: 0,
-    funExpenses: 0,
-    investments: 0,
-    savings: 0,
-  });
+  const [percentages, updatePercentages] = useState(initialPercentagesState);
   const [income, updateIncome] = useState(initialIncomeState);
   const [expenses, updateExpenses] = useState(initialExpenseState);
   const [investments, updateInvestments] = useState(initialInvestmentState);
@@ -39,7 +33,6 @@ export default function MonthPage() {
 // @ts-ignore TS is DUMB
   const slug = params.slug.toLowerCase();
 
-  let monthsByIdObject;
   let currentMonth;
 
   let {
@@ -57,18 +50,9 @@ export default function MonthPage() {
     const getData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${url}/month`);
-        const allMonths = response.data;
-        monthsByIdObject = allMonths.reduce(
-          (prev, curr) => ({
-            ...prev,
-            [curr.id]: curr,
-          }),
-          {}
-        );
 
-        // @ts-ignore
-        currentMonth = monthsByIdObject[slug] || initialMonthState;
+        const response = await axios.get(`${url}/month/${slug}`);
+        currentMonth = response.data[0] || initialMonthState;
 
         dbExpenses = currentMonth.Expenses;
         dbIncome = currentMonth.Income;
