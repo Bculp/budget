@@ -52,6 +52,9 @@ app.post('/month', async (req, res) => {
 
 app.put('/month/:id', async (req, res) => {
   const { id } = req.params;
+  if (id !== req.body.id) {
+    return res.status(400).json('Error: IDs don\'t match')
+  }
   let month = await Month.find({ id });
   const updatedMonth = await Month.findOneAndUpdate(
     { id },
@@ -75,6 +78,9 @@ app.put('/month/:id', async (req, res) => {
 
 app.delete('/month/:id', async (req, res) => {
   const { id } = req.params;
+  if (id !== req.body.id) {
+    return res.status(400).json('Error: IDs don\'t match')
+  }
   const deletedMonth = await Month.findOneAndDelete({ id });
   return res.status(200).json(deletedMonth);
 });
