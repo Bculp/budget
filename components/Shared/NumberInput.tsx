@@ -8,7 +8,7 @@ export const NumberInput = ({
   prefix = '$',
   suffix = '',
   thousandSeparator = ',',
-  value,
+  value = 0,
 }: {
   className?: string;
   label: string;
@@ -29,6 +29,6 @@ export const NumberInput = ({
     hideControls
     placeholder={placeholder}
     onChange={onChange}
-    value={Number(value.toFixed(2))}
+    value={Number(Number(value).toFixed(2))}
   />
 );
