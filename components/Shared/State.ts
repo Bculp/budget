@@ -151,18 +151,22 @@ export const initialInvestmentState = {
   roth401k: {
     actual: 0,
     budgeted: 0,
+    percentage: 0,
   },
   rothIRA: {
     actual: 0,
     budgeted: 0,
+    percentage: 0,
   },
   individualInvestments: {
     actual: 0,
     budgeted: 0,
+    percentage: 0,
   },
   mutualFunds: {
     actual: 0,
     budgeted: 0,
+    percentage: 0,
   },
   total: {
     percentage: 0,

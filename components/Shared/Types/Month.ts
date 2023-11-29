@@ -204,21 +204,25 @@ export interface Month {
       actual: number;
       budgeted: number;
       difference: number;
+      percentage: number;
     };
     rothIRA: {
       actual: number;
       budgeted: number;
       difference: number;
+      percentage: number;
     };
     individualInvestments: {
       actual: number;
       budgeted: number;
       difference: number;
+      percentage: number;
     };
     mutualFunds: {
       actual: number;
       budgeted: number;
       difference: number;
+      percentage: number;
     };
     total: {
       actual: number;

@@ -42,11 +42,43 @@ export const Investments = ({
       <Collapse in={opened}>
         <NumberInput
           className={styles.input}
-          label="Percentage"
+          label="Total Percentage"
           onChange={(value: number) => mergePercentageUpdate('investments', value)}
           prefix=""
           suffix="%"
           value={percentages.investments}
+        />
+        <NumberInput
+          className={styles.input}
+          label="Roth 401k Percentage"
+          onChange={(value: number) => mergeInvestmentUpdate('roth401k', 'percentage', value)}
+          prefix=""
+          suffix="%"
+          value={investments.roth401k.percentage}
+        />
+        <NumberInput
+          className={styles.input}
+          label="Roth IRA Percentage"
+          onChange={(value: number) => mergeInvestmentUpdate('rothIRA', 'percentage', value)}
+          prefix=""
+          suffix="%"
+          value={investments.rothIRA.percentage}
+        />
+        <NumberInput
+          className={styles.input}
+          label="Individual Investments Percentage"
+          onChange={(value: number) => mergeInvestmentUpdate('individualInvestments', 'percentage', value)}
+          prefix=""
+          suffix="%"
+          value={investments.individualInvestments.percentage}
+        />
+        <NumberInput
+          className={styles.input}
+          label="ETFs/Mutual Funds Percentage"
+          onChange={(value: number) => mergeInvestmentUpdate('mutualFunds', 'percentage', value)}
+          prefix=""
+          suffix="%"
+          value={investments.mutualFunds.percentage}
         />
         <div className={styles.container}>
           {/* Actual */}
@@ -54,23 +86,23 @@ export const Investments = ({
             sectionTitle="Actual"
             fields={[
               {
-                label: '[AUTO] Roth 401k (12%)',
+                label: '[AUTO] Roth 401k',
                 onChange: (value: number) => mergeInvestmentUpdate('roth401k', 'actual', value),
                 value: investments.roth401k.actual,
               },
               {
-                label: 'Roth IRA (10.75%)',
+                label: 'Roth IRA',
                 onChange: (value: number) => mergeInvestmentUpdate('rothIRA', 'actual', value),
                 value: investments.rothIRA.actual,
               },
               {
-                label: 'Individual Investments (9%)',
+                label: 'Individual Investments',
                 onChange: (value: number) =>
                   mergeInvestmentUpdate('individualInvestments', 'actual', value),
                 value: investments.individualInvestments.actual,
               },
               {
-                label: 'ETFs/Mutual Funds (19.25%)',
+                label: 'ETFs/Mutual Funds',
                 onChange: (value: number) => mergeInvestmentUpdate('mutualFunds', 'actual', value),
                 value: investments.mutualFunds.actual,
               },
@@ -83,23 +115,23 @@ export const Investments = ({
             sectionTitle="Budgeted"
             fields={[
               {
-                label: '[AUTO] Roth 401k (12%)',
+                label: '[AUTO] Roth 401k',
                 onChange: (value: number) => mergeInvestmentUpdate('roth401k', 'budgeted', value),
                 value: investments.roth401k.budgeted,
               },
               {
-                label: 'Roth IRA (10.75%)',
+                label: 'Roth IRA',
                 onChange: (value: number) => mergeInvestmentUpdate('rothIRA', 'budgeted', value),
                 value: investments.rothIRA.budgeted,
               },
               {
-                label: 'Individual Investments (9%)',
+                label: 'Individual Investments',
                 onChange: (value: number) =>
                   mergeInvestmentUpdate('individualInvestments', 'budgeted', value),
                 value: investments.individualInvestments.budgeted,
               },
               {
-                label: 'ETFs/Mutual Funds (19.25%)',
+                label: 'ETFs/Mutual Funds',
                 onChange: (value: number) =>
                   mergeInvestmentUpdate('mutualFunds', 'budgeted', value),
                 value: investments.mutualFunds.budgeted,
@@ -112,14 +144,14 @@ export const Investments = ({
           <Generator
             sectionTitle="Difference"
             fields={[
-              { label: '[AUTO] Roth 401k (12%)', value: roth401kDifference },
-              { label: 'Roth IRA (10.75%)', value: rothIRADifference },
+              { label: '[AUTO] Roth 401k', value: roth401kDifference },
+              { label: 'Roth IRA', value: rothIRADifference },
               {
-                label: 'Individual Investments (9%)',
+                label: 'Individual Investments',
                 value: individualInvestmentsDifference,
               },
               {
-                label: 'ETFs/Mutual Funds (19.25%)',
+                label: 'ETFs/Mutual Funds',
                 value: mutualFundsDifference,
               },
             ]}
