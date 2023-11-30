@@ -186,7 +186,7 @@ export const initialCarPaymentState = {
   amtPaidThisMonth: 0,
 };
 
-const initialInvestmentCheckingState = {
+export const initialInvestmentCheckingState = {
   savings: 0,
   rothIRA: 0,
   individualInvestments: 0,

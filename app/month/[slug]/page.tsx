@@ -11,7 +11,7 @@ import { Totals } from '@/components/Totals';
 import { Savings } from '@/components/Savings';
 import { InvestmentChecking } from '@/components/InvestmentChecking';
 import { createMonth, updateMonth, url } from '@/components/Shared/api';
-import { initialCarPaymentState, initialExpenseState, initialIncomeState, initialInvestmentState, initialMonthState, initialPercentagesState, initialSavingsState } from '@/components/Shared/State';
+import { initialCarPaymentState, initialExpenseState, initialIncomeState, initialInvestmentCheckingState, initialInvestmentState, initialMonthState, initialPercentagesState, initialSavingsState } from '@/components/Shared/State';
 import { NumberInput } from '@/components/Shared/NumberInput';
 import styles from '../../../components/Shared/Layout.module.css';
 import { CarPayment } from '@/components/CarPayment';
@@ -28,6 +28,7 @@ export default function MonthPage() {
   const [savings, updateSavings] = useState(initialSavingsState);
   const [carPayment, updateCarPayment] = useState(initialCarPaymentState);
   const [actualAmtInChecking, updateActualAmtInChecking] = useState(0);
+  const [investmentChecking, updateInvestmentChecking] = useState(initialInvestmentCheckingState);
 
   const params = useParams();
 // @ts-ignore TS is DUMB
@@ -156,6 +157,14 @@ export default function MonthPage() {
       // @ts-ignore
       expenses[type][title].budgeted - expenses[type][title].actual
     );
+
+    const mergeInvestmentCheckingUpdate = (category: string, value: number) => {
+      const newState = {
+        ...investmentChecking,
+        [category]: value,
+      };
+      updateInvestmentChecking(newState);
+    };
 
   const rentDifference = getExpenseDifference('fixed', 'rent');
   const rentersInsuranceDifference = getExpenseDifference('fixed', 'rentersInsurance');
@@ -389,13 +398,16 @@ export default function MonthPage() {
 
   const InvestmentCheckingProps = {
     savings: savings.actual > 0 ? savings.actual : 0, // will also add previous months amt to this
-    rothIRA: investments.rothIRA.actual, // will also add previous months amt to this
-    individualInvestments: investments.individualInvestments.actual, // will also add previous months amt to this
-    mutualFunds: investments.mutualFunds.actual, // will also add previous months amt to this
+    rothIRA: investmentChecking.rothIRA, // will also add previous months amt to this
+    individualInvestments: investmentChecking.individualInvestments, // will also add previous months amt to this
+    mutualFunds: investmentChecking.mutualFunds, // will also add previous months amt to this
     actualAmtInChecking,
     updateActualAmtInChecking,
     budgetAmtInChecking,
     budgetBalance,
+    mergeInvestmentCheckingUpdate,
+    updateInvestmentChecking,
+    investmentChecking,
   };
 
   const monthObjToDb = {
@@ -605,9 +617,12 @@ export default function MonthPage() {
       percentage: percentages.savings,
     },
     InvestmentChecking: {
-      rothIRA: investments.rothIRA.actual,
-      individualInvestments: investments.individualInvestments.actual,
-      mutualFunds: investments.mutualFunds.actual,
+      savings: investmentChecking.savings,
+      rothIRA: investmentChecking.rothIRA,
+      individualInvestments: investmentChecking.individualInvestments,
+      mutualFunds: investmentChecking.mutualFunds,
+      budgetAmtInChecking: investmentChecking.budgetAmtInChecking,
+      budgetBalance: investmentChecking.budgetBalance,
     },
     CarPayment: {
       ...carPayment,
@@ -664,6 +679,8 @@ export default function MonthPage() {
         totalDifferenceInvestments={totalDifferenceInvestments}
         percentages={percentages}
         mergePercentageUpdate={mergePercentageUpdate}
+        income={income}
+        updateInvestments={updateInvestments}
       />
       <Totals
         income={totalActualIncome}

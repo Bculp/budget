@@ -15,7 +15,9 @@ import { NumberInput } from '@/components/Shared/NumberInput';
 import styles from '../../components/Shared/Layout.module.css';
 import { months } from '../../components/Shared/Months';
 import { CarPayment } from '@/components/CarPayment';
-import { initialCarPaymentState, initialExpenseState, initialIncomeState, initialInvestmentState, initialMonthState, initialPercentagesState, initialSavingsState } from '@/components/Shared/State';
+import { initialCarPaymentState, initialExpenseState, initialIncomeState, initialInvestmentCheckingState, initialInvestmentState, initialMonthState, initialPercentagesState, initialSavingsState } from '@/components/Shared/State';
+
+//TODO: Also need to populate last months investment percentages
 
 export default function NewMonthPage() {
   // ---- USE STATE ---- //
@@ -31,6 +33,7 @@ export default function NewMonthPage() {
   const [savings, updateSavings] = useState(initialSavingsState);
   const [carPayment, updateCarPayment] = useState(initialCarPaymentState);
   const [actualAmtInChecking, updateActualAmtInChecking] = useState(0);
+  const [investmentChecking, updateInvestmentChecking] = useState(initialInvestmentCheckingState);
 
   const searchParams = useSearchParams();
   const prevMonth = searchParams.get('prevMonth');
@@ -140,6 +143,14 @@ export default function NewMonthPage() {
     updateCarPayment(newState);
   };
 
+  const mergeInvestmentCheckingUpdate = (category: string, value: number) => {
+    const newState = {
+      ...investmentChecking,
+      [category]: value,
+    };
+    updateInvestmentChecking(newState);
+  };
+
   useEffect(() => {
     const getData = async () => {
       try {
@@ -235,18 +246,22 @@ export default function NewMonthPage() {
           roth401k: {
             actual: dbInvestments.roth401k.actual,
             budgeted: dbInvestments.roth401k.budgeted,
+            percentage: dbInvestments.roth401k.percentage,
           },
           rothIRA: {
-            actual: 0, // TODO: need to capture and store investment percentages so I can use them here to compute actual amts
+            actual: dbInvestments.rothIRA.actual,
             budgeted: dbInvestments.rothIRA.budgeted,
+            percentage: dbInvestments.rothIRA.percentage,
           },
           individualInvestments: {
-            actual: 0, // TODO: need to capture and store investment percentages so I can use them here to compute actual amts
+            actual: dbInvestments.individualInvestments.actual,
             budgeted: dbInvestments.individualInvestments.budgeted,
+            percentage: dbInvestments.individualInvestments.percentage,
           },
           mutualFunds: {
-            actual: 0, // TODO: need to capture and store investment percentages so I can use them here to compute actual amts
+            actual: dbInvestments.mutualFunds.actual,
             budgeted: dbInvestments.mutualFunds.budgeted,
+            percentage: dbInvestments.mutualFunds.percentage,
           },
           total: {
             percentage: dbInvestments.total.percentage,
@@ -509,6 +524,9 @@ export default function NewMonthPage() {
     updateActualAmtInChecking,
     budgetAmtInChecking,
     budgetBalance,
+    mergeInvestmentCheckingUpdate,
+    updateInvestmentChecking,
+    investmentChecking,
   };
 
   const monthObjToDb = {
@@ -718,9 +736,12 @@ export default function NewMonthPage() {
       percentage: percentages.savings,
     },
     InvestmentChecking: {
-      rothIRA: investments.rothIRA.actual,
-      individualInvestments: investments.individualInvestments.actual,
-      mutualFunds: investments.mutualFunds.actual,
+      savings: investmentChecking.savings,
+      rothIRA: investmentChecking.rothIRA,
+      individualInvestments: investmentChecking.individualInvestments,
+      mutualFunds: investmentChecking.mutualFunds,
+      budgetAmtInChecking: investmentChecking.budgetAmtInChecking,
+      budgetBalance: investmentChecking.budgetBalance,
     },
     CarPayment: {
       ...carPayment,
@@ -778,6 +799,8 @@ export default function NewMonthPage() {
             totalDifferenceInvestments={totalDifferenceInvestments}
             percentages={percentages}
             mergePercentageUpdate={mergePercentageUpdate}
+            income={income}
+            updateInvestments={updateInvestments}
           />
           <Totals
             income={totalActualIncome}

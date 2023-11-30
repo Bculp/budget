@@ -1,9 +1,10 @@
 import { ActionIcon, Collapse, Group, Title } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
+import { useEffect } from 'react';
 import { Generator } from '../Shared/Generator';
 import styles from '../Shared/Layout.module.css';
-import { Percentages } from '../Shared/Types/StateProps';
+import { IIncome, Percentages } from '../Shared/Types/StateProps';
 import { NumberInput } from '../Shared/NumberInput';
 
 export const Investments = ({
@@ -18,6 +19,8 @@ export const Investments = ({
   totalDifferenceInvestments,
   percentages,
   mergePercentageUpdate,
+  income,
+  updateInvestments,
 }: {
   investments: any;
   mergeInvestmentUpdate: any;
@@ -30,8 +33,29 @@ export const Investments = ({
   totalDifferenceInvestments: number;
   percentages: Percentages;
   mergePercentageUpdate: any;
+  income: IIncome;
+  updateInvestments: any;
 }) => {
   const [opened, { toggle }] = useDisclosure(false);
+  useEffect(() => {
+    const newState = {
+      ...investments,
+      rothIRA: {
+        ...investments.rothIRA,
+        actual: income.job.actual * (investments.rothIRA.percentage / 100),
+      },
+      individualInvestments: {
+        ...investments.individualInvestments,
+        actual: income.job.actual * (investments.individualInvestments.percentage / 100),
+      },
+      mutualFunds: {
+        ...investments.mutualFunds,
+        actual: income.job.actual * (investments.mutualFunds.percentage / 100),
+      },
+    };
+
+    updateInvestments(newState);
+  }, [income]);
 
   return (
     <div>
